@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: helloconsumer
+server:
+  port: 7211
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:7071/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    metadataMap:
+      instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
+# CSE RPC 的配置项
+# 应用名称
+APPLICATION_ID: spring-cloud-application-cse-rpc
+# 微服务名称和版本号，微服务名称使用Spring Cloud的名称
+service_description:
+  name: ${spring.application.name}
+  version: 1.0.0
+# 服务中心和配置中心的地址
+servicecomb:
+  service:
+    registry:
+      address: https://cse.cn-north-1.myhwclouds.com
+      instance:
+        watch: false
+  config:
+    client:
+      serverUri: https://cse.cn-north-1.myhwclouds.com
+      refreshMode: 1
+      refresh_interval: 15000
+# 对外发布的地址，端口号使用server.port
+  rest:
+    address: 0.0.0.0:${server.port}
+# AK/SK认证信息，需要修改为自己的AK/SK
+  credentials:
+    accessKey: BUDCVWSAW04UZVLSZBQR
+    secretKey: BHixEctCJFbTkPUVUUjRDSeVwMAknlAy5oB7idgR
+    akskCustomCipher: default
+# 线下开发，关闭监控数据上报
+  monitor:
+    client:
+      enable: false
