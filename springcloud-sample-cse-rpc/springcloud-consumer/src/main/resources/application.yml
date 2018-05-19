@@ -50,3 +50,6 @@ servicecomb:
   monitor:
     client:
       enable: false
+cse:
+  dynamic:
+    property: xxxx2

@@ -19,6 +19,7 @@ import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.apache.servicecomb.provider.springmvc.reference.RestTemplateBuilder;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +38,9 @@ public class ConsumerHelloService {
   @Value(value = "${cse.dynamic.property:null}")
   String value;
 
+  @Autowired
+  Configuration config;
+
   RestTemplate restTemplate = RestTemplateBuilder.create();
   
   @RequestMapping(method = RequestMethod.GET)
@@ -51,6 +55,7 @@ public class ConsumerHelloService {
   @RequestMapping(method = RequestMethod.GET, path="dynamicProperty")
   public String dynamicProperty() {
     String dynamicProperty = DynamicPropertyFactory.getInstance().getStringProperty("cse.dynamic.property", "").get();
-    return "@Value is " + value + "; Api read is " + dynamicProperty;
+    String configProperty = config.getProperty();
+    return "@Value is " + value + "; Api read is " + dynamicProperty + "; config Property is: " + configProperty;
   }
 }
