@@ -1,0 +1,42 @@
+cse-config-order: 100
+
+APPLICATION_ID: bookingApp
+service_description:
+  name: bookingApp-edge
+  version: 0.0.1
+  environment: development
+
+servicecomb:
+  service:
+    registry:
+      address: https://cse.cn-north-1.myhuaweicloud.com
+      instance:
+        watch: false
+  config:
+    client:
+      serverUri:  https://cse.cn-north-1.myhuaweicloud.com
+      refreshMode: 1
+      refresh_interval: 5000
+  monitor:
+    client:
+      serverUri:  https://cse.cn-north-1.myhuaweicloud.com
+  references:
+    version-rule: 0.0.0+
+  credentials:
+    accessKey: BUDCVWSAW04UZVLSZBQR
+    secretKey: BHixEctCJFbTkPUVUUjRDSeVwMAknlAy5oB7idgR
+    akskCustomCipher: default
+
+  rest:
+    address: 0.0.0.0:18080
+    server:
+      thread-count: 10
+
+  http:
+    dispatcher:
+      edge:
+        default:
+          enabled: true
+          prefix: rest
+          withVersion: false
+          prefixSegmentCount: 2

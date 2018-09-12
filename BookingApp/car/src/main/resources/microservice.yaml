@@ -1,0 +1,35 @@
+cse-config-order: 100
+APPLICATION_ID: houseapp
+service_description:
+  name: product-service
+  version: 0.0.1
+cse:
+  service:
+    registry:
+      address: https://cse.cn-north-1.myhwclouds.com:443
+      instance:
+        watch: false
+  config:
+    client:
+      serverUri: https://cse.cn-north-1.myhwclouds.com:443
+      refreshMode: 1
+      refresh_interval: 5000
+  monitor:
+    client:
+      serverUri: https://cse.cn-north-1.myhwclouds.com:443
+
+  rest:
+    address: 0.0.0.0:8089
+    server:
+      thread-count: 10
+  credentials:
+    accessKey: BUDCVWSAW04UZVLSZBQR
+    secretKey: BHixEctCJFbTkPUVUUjRDSeVwMAknlAy5oB7idgR
+    akskCustomCipher: default
+
+  handler:
+    chain:
+      Provider:
+        default: perf-stats,qps-flowcontrol-provider,bizkeeper-provider,tcc-provider,twoPC-provider
+      Consumer:
+        default: perf-stats,qps-flowcontrol-consumer,loadbalance,bizkeeper-consumer,tcc-consumer,twoPC-consumer
