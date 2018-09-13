@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.cse.saga.hotel.dao.HotelMapper">
+    <sql id="all_column">
+        TRANSACTION_ID,COUNT
+    </sql>
+
+    <select id="getHotelCount" resultType="int">
+        select 1000;
+    </select>
+
+    <select id="getBookedCount" resultType="int">
+        select sum(COUNT) from T_HOTEL;
+    </select>
+
+    <insert id="insertBookingRecord">
+        insert into T_HOTEL (
+        <include refid="all_column" />
+        )
+        values (#{transactionId,jdbcType=VARCHAR}, #{count,jdbcType=BIGINT})
+    </insert>
+</mapper>
