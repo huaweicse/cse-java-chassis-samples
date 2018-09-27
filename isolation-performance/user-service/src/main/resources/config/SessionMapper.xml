@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.cse.porter.user.dao.SessionMapper">
+    <resultMap id="sessionInfo" type="com.huawei.cse.porter.user.dao.SessionInfo">
+        <result column="ID" jdbcType="INTEGER" property="id" />
+        <result column="SESSION_ID" jdbcType="VARCHAR" property="sessiondId" />
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+        <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
+        <result column="CREATION_TIME" jdbcType="TIMESTAMP" property="creationTime" />
+        <result column="ACTIVE_TIME" jdbcType="TIMESTAMP" property="activeTime" />
+    </resultMap>
+
+    <sql id="all_column">
+        ID, SESSION_ID, USER_NAME, ROLE_NAME, CREATION_TIME, ACTIVE_TIME
+    </sql>
+
+    <sql id="all_column_auto">
+        SESSION_ID, USER_NAME, ROLE_NAME
+    </sql>
+
+    <insert id="createSession" parameterType="com.huawei.cse.porter.user.dao.SessionInfo">
+        insert into T_SESSION (
+        <include refid="all_column_auto" />
+        )
+        values (#{sessiondId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+        #{roleName,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="getSessioinInfo" parameterType="java.lang.String"
+        resultMap="sessionInfo">
+        select
+        <include refid="all_column" />
+        from T_SESSION where SESSION_ID = #{0,jdbcType=VARCHAR}
+    </select>
+    
+    <update id="updateSessionInfo" parameterType="java.lang.String">
+        update T_SESSION
+        set CREATION_TIME = CREATION_TIME where SESSION_ID = #{0,jdbcType=VARCHAR};
+    </update>
+</mapper>
