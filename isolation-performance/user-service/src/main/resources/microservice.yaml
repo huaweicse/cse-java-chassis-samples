@@ -43,3 +43,5 @@ cse:
   loadbalance:
     isolation:
       enabled: true
+      minIsolationTime: 3000
+    retryEnabled: true

@@ -5,9 +5,12 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.apache.servicecomb.foundation.common.utils.BeanUtils;
 import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
 import org.apache.servicecomb.provider.springmvc.reference.RestTemplateBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
-public class UserMain {
+public class PerfClient {
+  private static final Logger LOG = LoggerFactory.getLogger(PerfClient.class);
   public static void main(String[] args) throws Exception {
     Log4jUtils.init();
     BeanUtils.init();
@@ -35,7 +38,7 @@ public class UserMain {
 
     while (true) {
       Thread.sleep(5000);
-      System.out.println("S=" + counterS.get() + ";E=" + counterE.get());
+      LOG.info("S=" + counterS.get() + ";E=" + counterE.get());
     }
   }
 }

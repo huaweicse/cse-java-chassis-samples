@@ -37,4 +37,4 @@ cse:
 #    akskCustomCipher: default
 
   rest:
-    address: 0.0.0.0:9094
+    address: 0.0.0.0:9095
