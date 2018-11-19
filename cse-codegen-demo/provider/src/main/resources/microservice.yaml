@@ -1,0 +1,29 @@
+APPLICATION_ID: helloworld
+service_description:
+  name: provider
+  version: 0.0.1
+  properties:
+    allowCrossApp: true
+#  enviroment: development
+cse:
+  service:
+    registry:
+      address: http://127.0.0.1:30100
+      instance:
+        watch: false
+#  config:
+#    client:
+#      serverUri: https://cse.cn-north-1.myhuaweicloud.com
+#      refreshMode: 1
+#      refresh_interval: 5000
+#  monitor:
+#    client:
+#      serverUri: https://cse.cn-north-1.myhuaweicloud.com
+  rest:
+    address: 127.0.0.1:8081
+  #When a local project is deployed as a container outside a cluster, you need to delete all monitor and credentials comments and configure the AK/SK.
+#  credentials:
+#    accessKey: JIL5PFF8SADDKJ24UF2K
+#    secretKey: 0PW5ETY7nL6JNOqA5i7BVH3yVe8FdoeZyEiV42Mc
+#    akskCustomCipher: default
+#    project: cn-north-1

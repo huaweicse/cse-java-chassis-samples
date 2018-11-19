@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>cse-codegen-demo</artifactId>
+        <groupId>com.huawei.john</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>provider</artifactId>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.swagger</groupId>
+                <artifactId>huawei-swagger-codegen-maven-plugin</artifactId>
+                <version>2.2.8</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <skip>false</skip>
+                    <skipOverwrite>false</skipOverwrite>
+                    <repositories>
+                        <repository>
+                            <!--<userName></userName>-->
+                            <!--<password></password>-->
+                            <repoUrl>git@github.com:huaweicse/cse-codegen-schemas.git</repoUrl>
+                            <branch>master</branch>
+                            <services>
+                                <service>
+                                    <serviceName>provider</serviceName>
+                                    <packageName>com.huawei.paas.provider</packageName>
+                                    <schemaType>provider</schemaType>
+                                    <schemas>
+                                        <schema>
+                                            <schemaPath>dir/myservice.yaml</schemaPath>
+                                        </schema>
+                                    </schemas>
+                                </service>
+                            </services>
+                        </repository>
+                    </repositories>
+                    <packageName>com.huawei.paas.provider</packageName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
