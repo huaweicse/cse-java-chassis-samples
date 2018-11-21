@@ -1,6 +1,6 @@
 APPLICATION_ID: helloworld
 service_description:
-  name: consumer
+  name: myconsumer
   version: 0.0.1
   properties:
     allowCrossApp: true
