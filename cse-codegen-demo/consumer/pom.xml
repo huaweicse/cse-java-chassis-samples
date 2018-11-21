@@ -36,12 +36,12 @@
                             <services>
                                 <service>
                                     <!--<appId>lala</appId>-->
-                                    <serviceName>provider</serviceName>
+                                    <serviceName>myprovider</serviceName>
                                     <packageName>com.huawei.paas.consumer</packageName>
                                     <schemaType>consumer</schemaType>
                                     <schemas>
                                         <schema>
-                                            <schemaPath>dir/myservice.yaml</schemaPath>
+                                            <schemaPath>yaml/myservice.yaml</schemaPath>
                                         </schema>
                                     </schemas>
                                 </service>
