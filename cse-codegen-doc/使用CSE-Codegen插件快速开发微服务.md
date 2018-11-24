@@ -34,7 +34,7 @@
 
 
 ### 版本
-&emsp;&emsp;目前CSE-Codegen插件版本是2.2.8，可以到华为镜像站的[huaweicloudsdk仓库](https://repo.huaweicloud.com/repository/maven/huaweicloudsdk/)获取。
+&emsp;&emsp;目前CSE-Codegen的版本已经更新到2.2.8并上传到华为镜像站的[huaweicloudsdk仓库](https://repo.huaweicloud.com/repository/maven/huaweicloudsdk/)，后续版本也会发布到这里。
 
 ### 使用CSE-Codegen插件快速开发微服务
 
@@ -68,7 +68,9 @@
 ```
 
 ###### 3. 配置pom文件，引入插件
-&emsp;&emsp;使用eclipse的用户可能需要在<plugins>标签外层再套一层<pluginManagement\> 标签。参数说明如下表所示。
+&emsp;&emsp;使用eclipse的用户可能会发现pom文件出现“Plugin execution not covered by lifecycle configuration”的报错信息。出现这种情况不影响插件使用，可以不用理会，也可以按照eclipse的修复提示进行修复。
+
+参数说明如下。
 
 | 参数	| 说明 |
 | - | - |
@@ -179,7 +181,8 @@
 ```
 
 ###### 4. 运行插件，同步契约并生成框架代码
-&emsp;&emsp;分别运行consumer和provider的CSE-Codegen插件，可以在命令行中执行mvn huawei-swagger-codegen:generate，或者一些IDE提供了运行插件的快捷方法，比如idea。或者直接编译整个微服务工程，运行插件（当然，不是说每次编译都要运行插件，所以插件配置提供了一个skip参数，默认skip为false，如果想要阻止插件运行导致重复生成框架代码，我们只需要将skip设置为true）。
+执行命令，运行CSE-Codegen插件：mvn generate-sources  
+或者直接编译整个微服务工程，运行插件。当然，不是说每次编译都要运行插件，所以插件配置提供了一个skip参数，默认skip为false，如果想要阻止插件运行导致重复生成框架代码，我们只需要将skip设置为true。
 
   ![generate](https://github.com/huaweicse/cse-java-chassis-samples/blob/master/cse-codegen-doc/generate.png)
 
@@ -431,7 +434,7 @@ public class MyserviceDelegateImpl implements MyserviceDelegate {
     public ForecastSummary show(@RequestParam(value = "city", required = false) String city){
 
         return useMyserviceDelegate.show(city);
-//        return restTemplate.getForObject("cse://provider/forecast/show?city=" + city, ForecastSummary.class);
+//        return restTemplate.getForObject("cse://myprovider/forecast/show?city=" + city, ForecastSummary.class);
     }
 
     @RequestMapping(value = "/extra",
@@ -440,7 +443,7 @@ public class MyserviceDelegateImpl implements MyserviceDelegate {
             method = RequestMethod.POST)
     public String extra( @RequestParam(value = "city", required = true) String city) {
         return useMyserviceDelegate.extra(city);
-//        return restTemplate.postForObject("cse://provider/forecast/extra?city=" + city, null, String.class);
+//        return restTemplate.postForObject("cse://myprovider/forecast/extra?city=" + city, null, String.class);
     }
 }
 ```
@@ -452,7 +455,7 @@ public class MyserviceDelegateImpl implements MyserviceDelegate {
 &emsp;&emsp;配置好工程里的microservice.yaml，启动服务中心，启动consumer和provider，可以到127.0.0.1:30103访问服务中心，如下图所示。
 ![serviceCenter](https://github.com/huaweicse/cse-java-chassis-samples/blob/master/cse-codegen-doc/serviceCenter.png)
 
-&emsp;&emsp;可以使用postman进行测试，除此之外，也可以到服务中心页面中的consumer里面测试契约，如下图所示。
+&emsp;&emsp;可以使用postman进行测试，除此之外，因为这里的consumer也使用了RestSchema和RequestMapping注解，所以在服务中心也找得到consumer的契约，可以到服务中心页面测试契约，如下图所示。
 ![serviceCenterConsumer](https://github.com/huaweicse/cse-java-chassis-samples/blob/master/cse-codegen-doc/serviceCenterConsumer.png)
 
 ![consumerExtra](https://github.com/huaweicse/cse-java-chassis-samples/blob/master/cse-codegen-doc/consumerExtra.png)
