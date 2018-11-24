@@ -181,7 +181,7 @@
 ###### 4. 运行插件，同步契约并生成框架代码
 &emsp;&emsp;分别运行consumer和provider的CSE-Codegen插件，可以在命令行中执行mvn huawei-swagger-codegen:generate，或者一些IDE提供了运行插件的快捷方法，比如idea。或者直接编译整个微服务工程，运行插件（当然，不是说每次编译都要运行插件，所以插件配置提供了一个skip参数，默认skip为false，如果想要阻止插件运行导致重复生成框架代码，我们只需要将skip设置为true）。
 
-  ![generate](generate.png)
+  ![generate](https://github.com/huaweicse/cse-java-chassis-samples/blob/master/cse-codegen-doc/generate.png)
 
 接下来就来看一下CSE-Codegen插件运行后带来了什么效果。
 
@@ -189,25 +189,25 @@
 
   首先插件会检查工程的gitRepo目录下是否存在同名的Git仓库，如果存在则进行删除。
 
-  ![delete](delete.png)
+  ![delete](https://github.com/huaweicse/cse-java-chassis-samples/blob/master/cse-codegen-doc/delete.png)
 
   然后下载整个Git仓库到工程的gitRepo目录下。
 
-  ![gitRepoConsumer](gitRepoConsumer.png)
+  ![gitRepoConsumer](https://github.com/huaweicse/cse-java-chassis-samples/blob/master/cse-codegen-doc/gitRepoConsumer.png)
 
-  ![gitRepoProvider](gitRepoProvider.png)
+  ![gitRepoProvider](https://github.com/huaweicse/cse-java-chassis-samples/blob/master/cse-codegen-doc/gitRepoProvider.png)
 
   接下来，插件根据scchemaPath查找gitRepo里的契约文件，复制到契约文件到工程的microservices目录下，如目录中存在同名契约则替换掉。
 
-  ![yamlConsumer](yamlConsumer.png)
+  ![yamlConsumer](https://github.com/huaweicse/cse-java-chassis-samples/blob/master/cse-codegen-doc/yamlConsumer.png)
 
-  ![yamlProvider](yamlProvider.png)
+  ![yamlProvider](https://github.com/huaweicse/cse-java-chassis-samples/blob/master/cse-codegen-doc/yamlProvider.png)
 
 
 * 生成框架代码
 
   * 生成consumer端框架代码：model类、delegate接口、impl实现类（具备RPC调用接口）。
-  ![consumer](consumer.png)
+  ![consumer](https://github.com/huaweicse/cse-java-chassis-samples/blob/master/cse-codegen-doc/consumer.png)
 
     接口MyserviceDelegate
 
@@ -255,7 +255,7 @@
     ```
 
   * 生成provider端框架代码：model类、controller类、delegate接口、impl实现类。
-  ![provider](provider.png)
+  ![provider](https://github.com/huaweicse/cse-java-chassis-samples/blob/master/cse-codegen-doc/provider.png)
 
     MyServiceController
 
@@ -447,16 +447,16 @@ public class MyserviceDelegateImpl implements MyserviceDelegate {
 
 ###### 6. 测试服务消费者consumer和服务提供者provider的通信情况
 &emsp;&emsp;测试consumer和provider是否可以通信，可以下载[本地服务中心](https://console.huaweicloud.com/cse/?region=cn-north-1#/cse/tools)，如下图所示。
-![serviceCenterDownload](serviceCenterDownload.png)
+![serviceCenterDownload](https://github.com/huaweicse/cse-java-chassis-samples/blob/master/cse-codegen-doc/serviceCenterDownload.png)
 
 &emsp;&emsp;配置好工程里的microservice.yaml，启动服务中心，启动consumer和provider，可以到127.0.0.1:30103访问服务中心，如下图所示。
-![serviceCenter](serviceCenter.png)
+![serviceCenter](https://github.com/huaweicse/cse-java-chassis-samples/blob/master/cse-codegen-doc/serviceCenter.png)
 
 &emsp;&emsp;可以使用postman进行测试，除此之外，也可以到服务中心页面中的consumer里面测试契约，如下图所示。
-![serviceCenterConsumer](serviceCenterConsumer.png)
+![serviceCenterConsumer](https://github.com/huaweicse/cse-java-chassis-samples/blob/master/cse-codegen-doc/serviceCenterConsumer.png)
 
-![consumerExtra](consumerExtra.png)
+![consumerExtra](https://github.com/huaweicse/cse-java-chassis-samples/blob/master/cse-codegen-doc/consumerExtra.png)
 
-![consumerShow](consumerShow.png)
+![consumerShow](https://github.com/huaweicse/cse-java-chassis-samples/blob/master/cse-codegen-doc/consumerShow.png)
 
 测试成功，一个简单的微服务就开发完成了。
