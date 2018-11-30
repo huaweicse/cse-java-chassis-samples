@@ -1,0 +1,97 @@
+.table {
+    border: 1px solid #cccccc;
+}
+
+.header {
+    height: 50px;
+    line-height: 50px;
+    background: #499df2;
+    padding: 0 20px;
+    color: #ffffff;
+}
+
+.header a {
+    color: #ffffff;
+    padding: 0 10px;
+    background: #80ccff;
+    border-radius: 5px;
+}
+
+.header a:hover {
+    color: yellow;
+}
+
+.header .floors span {
+    margin-left: 10px;
+}
+
+.header .floors span:nth-child(1) {
+    margin-left: 0px;
+}
+
+.tbody {
+    background: #ffffff;
+}
+
+.tr {
+    display: flex;
+}
+
+.floor {
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    margin-top: 3rem;
+}
+
+.rooms {
+    width: 85%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.labelRight {
+    width: 20%;
+    padding: 10px;
+    border-bottom: 1px solid #cccccc;
+    border-left: 1px solid #cccccc;
+}
+
+.updatetime {
+    font-size: 14px;
+}
+
+.width {
+    width: 85%;
+}
+
+.header a.active {
+    color: yellow;
+}
+
+.borderBottom {
+    border-bottom: 1px solid #cccccc;
+}
+
+.borderLeft {
+    border-left: 1px solid #cccccc;
+}
+
+.borderRight {
+    border-right: 1px solid #cccccc;
+}
+
+.clearfix {
+    display: block;
+    clear: both;
+    content: '';
+    zoom: 1;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
