@@ -34,7 +34,7 @@
 
 
 ### 版本
-&emsp;&emsp;目前CSE-Codegen的版本已经更新到2.2.8并上传到华为镜像站的[huaweicloudsdk仓库](https://repo.huaweicloud.com/repository/maven/huaweicloudsdk/)，后续版本也会发布到这里。
+&emsp;&emsp;目前CSE-Codegen的版本已经更新到2.2.9并上传到华为镜像站的[huaweicloudsdk仓库](https://repo.huaweicloud.com/repository/maven/huaweicloudsdk/)，后续版本也会发布到这里。
 
 ### 使用CSE-Codegen插件快速开发微服务
 
@@ -78,8 +78,6 @@
 | skipOverWrite	| 是否跳过文件覆盖，默认是false，即每次运行插件都可以更新框架代码。 |
 | repositories|	定义多个契约仓库。 |
 | repository |	定义单个契约仓库，即远端契约所在的git仓库。 |
-| userName | 契约仓库的用户名（选填）。 |
-| password	| 契约仓库密码（选填）。 |
 | repoUrl	| 契约仓库地址，http、https、ssh格式都适用。 |
 | branch |	契约仓库分支名。 |
 | services |	定义多个服务。 |
@@ -93,13 +91,13 @@
 | schemaPath |	契约文件在契约仓库的相对路径。 |
 | packageName	| 生成代码的包路径，优先级小于service里面的packageName，当两者都没有设置，插件运行会报错。 |
 
-* consumer模块引入huawei-swagger-codegen-maven-plugin，插件版本号是2.2.8。schemaType指定参数“consumer”，生成服务消费者框架代码。
+* consumer模块引入huawei-swagger-codegen-maven-plugin，插件版本号是2.2.9，groupId不再是io.swagger，而是com.huawei.paas.cse。schemaType指定参数“consumer”，生成服务消费者框架代码。
 ``` xml
 <plugins>
     <plugin>
-        <groupId>io.swagger</groupId>
+        <groupId>com.huawei.paas.cse</groupId>
         <artifactId>huawei-swagger-codegen-maven-plugin</artifactId>
-        <version>2.2.8</version>
+        <version>2.2.9</version>
         <executions>
             <execution>
                 <goals>
@@ -109,11 +107,9 @@
         </executions>
         <configuration>
             <skip>false</skip>
-            <!--<skipOverwrite>false</skipOverwrite>-->
+            <skipOverwrite>false</skipOverwrite>
             <repositories>
                 <repository>
-                    <!--<userName></userName>-->
-                    <!--<password></password>-->
                     <repoUrl> https://github.com/huaweicse/cse-codegen-schemas.git</repoUrl>
                     <branch>master</branch>
                     <services>
@@ -137,13 +133,13 @@
 </plugins>
 ```
 
-* provider模块引入huawei-swagger-codegen-maven-plugin，插件版本号是2.2.8。schemaType指定参数“provider”，生成服务提供者框架代码。
+* provider模块引入huawei-swagger-codegen-maven-plugin，插件版本号是2.2.9，groupId不再是io.swagger，而是com.huawei.paas.cse。schemaType指定参数“provider”，生成服务提供者框架代码。
 ``` xml
 <plugins>
     <plugin>
-        <groupId>io.swagger</groupId>
+        <groupId>com.huawei.paas.cse</groupId>
         <artifactId>huawei-swagger-codegen-maven-plugin</artifactId>
-        <version>2.2.8</version>
+        <version>2.2.9</version>
         <executions>
             <execution>
                 <goals>
@@ -156,8 +152,6 @@
             <skipOverwrite>false</skipOverwrite>
             <repositories>
                 <repository>
-                    <!--<userName></userName>-->
-                    <!--<password></password>-->
                     <repoUrl> https://github.com/huaweicse/cse-codegen-schemas.git</repoUrl>
                     <branch>master</branch>
                     <services>
