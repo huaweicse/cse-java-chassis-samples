@@ -14,9 +14,9 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>io.swagger</groupId>
+                <groupId>com.huawei.paas.cse</groupId>
                 <artifactId>huawei-swagger-codegen-maven-plugin</artifactId>
-                <version>2.2.8</version>
+                <version>2.2.9</version>
                 <executions>
                     <execution>
                         <goals>
@@ -29,8 +29,6 @@
                     <!--<skipOverwrite>false</skipOverwrite>-->
                     <repositories>
                         <repository>
-                            <!--<userName></userName>-->
-                            <!--<password></password>-->
                             <repoUrl>git@github.com:huaweicse/cse-codegen-schemas.git</repoUrl>
                             <branch>master</branch>
                             <services>
