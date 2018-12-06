@@ -15,11 +15,13 @@ eureka:
       instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
 # CSE RPC 的配置项
 # 应用名称
-APPLICATION_ID: spring-cloud-application-cse-rpc
+APPLICATION_ID: spring-cloud-application-cse-rpc-1
 # 微服务名称和版本号，微服务名称使用Spring Cloud的名称
 service_description:
   name: ${spring.application.name}
   version: 1.0.0
+  properties:
+    allowCrossApp: true
 # 服务中心和配置中心的地址
 servicecomb:
   service:

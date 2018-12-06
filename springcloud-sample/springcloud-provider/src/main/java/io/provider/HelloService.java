@@ -32,8 +32,9 @@ public class HelloService implements Hello {
 
   @Override
   @RequestMapping(path = "/sayhi", method = RequestMethod.GET)
-  public String sayHi(@RequestParam(name = "name", required = false) String name) {
-    log.info("Access /hello/sayhi, and name is " + name);
-    return "from provider: Hello " + name;
+  public String sayHi(@RequestParam(name = "name", defaultValue = "20") String name,
+      @RequestParam(name = "age", required = true) Integer age) {
+    log.info("Access /hello/sayhi, and name is " + name + "; age is " + age);
+    return "from provider: Hello " + name + "; age is " + age;
   }
 }
