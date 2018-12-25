@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: springboot2-sample-zuul-bussiness
+
+server:
+  port: 7111
+
+# CSE RPC 的配置项
+# 应用名称
+APPLICATION_ID: springboot-sample
+# 微服务名称和版本号，微服务名称使用Spring Cloud的名称
+service_description:
+  name: ${spring.application.name}
+  version: 1.0.0
+# 服务中心的地址
+servicecomb:
+  service:
+    registry:
+      address: http://localhost:30100
+      instance:
+        watch: false
+# 对外发布的地址，端口号使用server.port
+  rest:
+    address: 0.0.0.0:${server.port}
+# 线下开发，关闭监控数据上报
+  monitor:
+    client:
+      enable: false
