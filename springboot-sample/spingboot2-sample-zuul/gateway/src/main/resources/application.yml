@@ -26,6 +26,13 @@ servicecomb:
   monitor:
     client:
       enable: false
+# 处理链配置
+  handler:
+    chain:
+      Provider:
+        default: qps-flowcontrol-provider
+      Consumer:
+        default: qps-flowcontrol-consumer,loadbalance,fault-injection-consumer
 
 zuul:
   host:
