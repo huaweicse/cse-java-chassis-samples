@@ -1,0 +1,11 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: mysql-accountdb
+  namespace: default
+data:
+  db.host: "192.168.244.231"
+  db.port: "8635"
+  db.dbname: account_db
+  db.username: root
+  db.password: password

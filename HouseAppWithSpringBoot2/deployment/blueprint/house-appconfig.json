@@ -1,0 +1,195 @@
+[
+  {
+    "paramsName": "account-service-image",
+    "paramsGlobal": "account-service-image",
+    "paramsValue": "100.125.0.198:20202/maoxuepeng6459/account-service:2.3.0.5",
+    "description": "",
+    "type": "string",
+    "label": "images",
+    "constrains": {}
+  },
+  {
+    "paramsName": "application-id",
+    "paramsGlobal": "application-id",
+    "paramsValue": "house-app-dev",
+    "description": "",
+    "type": "string",
+    "label": "defaultGroup",
+    "constrains": {}
+  },
+  {
+    "paramsName": "cm-cse-credential",
+    "paramsGlobal": "cm-cse-credential",
+    "paramsValue": "cse-credential",
+    "description": "",
+    "type": "string",
+    "label": "defaultGroup",
+    "constrains": {
+      "max_length": 24,
+      "regex": "(^$)|(^[a-z]([-a-z0-9]*[a-z0-9])?$)"
+    }
+  },
+  {
+    "paramsName": "cm-mysql-accountdb",
+    "paramsGlobal": "cm-mysql-accountdb",
+    "paramsValue": "mysql-accountdb",
+    "description": "",
+    "type": "string",
+    "label": "defaultGroup",
+    "constrains": {
+      "max_length": 24,
+      "regex": "(^$)|(^[a-z]([-a-z0-9]*[a-z0-9])?$)"
+    }
+  },
+  {
+    "paramsName": "cm-mysql-productdb",
+    "paramsGlobal": "cm-mysql-productdb",
+    "paramsValue": "mysql-productdb",
+    "description": "",
+    "type": "string",
+    "label": "defaultGroup",
+    "constrains": {
+      "max_length": 24,
+      "regex": "(^$)|(^[a-z]([-a-z0-9]*[a-z0-9])?$)"
+    }
+  },
+  {
+    "paramsName": "cm-mysql-userdb",
+    "paramsGlobal": "cm-mysql-userdb",
+    "paramsValue": "mysql-userdb",
+    "description": "",
+    "type": "string",
+    "label": "defaultGroup",
+    "constrains": {
+      "max_length": 24,
+      "regex": "(^$)|(^[a-z]([-a-z0-9]*[a-z0-9])?$)"
+    }
+  },
+  {
+    "paramsName": "cm-redis-credential",
+    "paramsGlobal": "cm-redis-credential",
+    "paramsValue": "redis-credential",
+    "description": "",
+    "type": "string",
+    "label": "defaultGroup",
+    "constrains": {
+      "max_length": 24,
+      "regex": "(^$)|(^[a-z]([-a-z0-9]*[a-z0-9])?$)"
+    }
+  },
+  {
+    "paramsName": "customer-service-image",
+    "paramsGlobal": "customer-service-image",
+    "paramsValue": "100.125.0.198:20202/maoxuepeng6459/customer-service:2.3.0.5",
+    "description": "",
+    "type": "string",
+    "label": "images",
+    "constrains": {}
+  },
+  {
+    "paramsName": "customer-website-image",
+    "paramsGlobal": "customer-website-image",
+    "paramsValue": "100.125.0.198:20202/maoxuepeng6459/customer-website:2.3.0.5",
+    "description": "",
+    "type": "string",
+    "label": "images",
+    "constrains": {}
+  },
+  {
+    "paramsName": "edge-service-image",
+    "paramsGlobal": "edge-service-image",
+    "paramsValue": "100.125.0.198:20202/maoxuepeng6459/edge-service:2.3.0.5",
+    "description": "",
+    "type": "string",
+    "label": "images",
+    "constrains": {}
+  },
+  {
+    "paramsName": "image-pull-policy",
+    "paramsGlobal": "image-pull-policy",
+    "paramsValue": "IfNotPresent",
+    "description": "",
+    "type": "string",
+    "label": "defaultGroup",
+    "constrains": {
+      "valid_values": [
+        "Always",
+        "IfNotPresent",
+        "Never"
+      ]
+    }
+  },
+  {
+    "paramsName": "instance",
+    "paramsGlobal": "instance",
+    "paramsValue": "1",
+    "description": "",
+    "type": "integer",
+    "label": "defaultGroup",
+    "constrains": {
+      "in_range": [
+        0,
+        2147483647
+      ]
+    }
+  },
+  {
+    "paramsName": "loadtestclient-image",
+    "paramsGlobal": "loadtestclient-image",
+    "paramsValue": "100.125.0.198:20202/maoxuepeng6459/loadtestclient:2.3.0.5",
+    "description": "",
+    "type": "string",
+    "label": "images",
+    "constrains": {}
+  },
+  {
+    "paramsName": "monitoring-group",
+    "paramsGlobal": "monitoring-group",
+    "paramsValue": "house-app-group",
+    "description": "",
+    "type": "string",
+    "label": "defaultGroup",
+    "constrains": {}
+  },
+  {
+    "paramsName": "nodeport",
+    "paramsGlobal": "nodeport",
+    "paramsValue": "31080",
+    "description": "",
+    "type": "integer",
+    "label": "defaultGroup",
+    "constrains": {
+      "in_range": [
+        30000,
+        32767
+      ]
+    }
+  },
+  {
+    "paramsName": "product-service-image",
+    "paramsGlobal": "product-service-image",
+    "paramsValue": "100.125.0.198:20202/maoxuepeng6459/product-service:2.3.0.5",
+    "description": "",
+    "type": "string",
+    "label": "images",
+    "constrains": {}
+  },
+  {
+    "paramsName": "tx-coordinator-image",
+    "paramsGlobal": "tx-coordinator-image",
+    "paramsValue": "100.125.0.198:20202/maoxuepeng6459/tx-coordinator:2.3.0.5",
+    "description": "",
+    "type": "string",
+    "label": "images",
+    "constrains": {}
+  },
+  {
+    "paramsName": "user-service-image",
+    "paramsGlobal": "user-service-image",
+    "paramsValue": "100.125.0.198:20202/maoxuepeng6459/user-service:2.3.0.5",
+    "description": "",
+    "type": "string",
+    "label": "images",
+    "constrains": {}
+  }
+]

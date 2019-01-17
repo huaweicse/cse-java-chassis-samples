@@ -1,0 +1,13 @@
+cse-config-order: 100
+
+## Spring Boot configurations
+spring:
+  application:
+    name: account-service
+server:
+  port: 8094
+
+## CSE configurations
+cse:
+  rest:
+    address: 0.0.0.0:8094

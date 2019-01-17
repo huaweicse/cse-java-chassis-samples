@@ -1,0 +1,736 @@
+tosca_definitions_version: fusionstage_tosca_version_2_1
+
+inputs:
+  edge-service-image:
+    default: 100.125.0.198:20202/maoxuepeng6459/edge-service:2.3.2
+    label: images
+  user-service-image:
+    default: 100.125.0.198:20202/maoxuepeng6459/user-service:2.3.2
+    label: images
+  product-service-image:
+    default: 100.125.0.198:20202/maoxuepeng6459/product-service:2.3.2
+    label: images
+  customer-website-image:
+    default: 100.125.0.198:20202/maoxuepeng6459/customer-website:2.3.2
+    label: images
+  customer-service-image:
+    default: 100.125.0.198:20202/maoxuepeng6459/customer-service:2.3.2
+    label: images
+  account-service-image:
+    default: 100.125.0.198:20202/maoxuepeng6459/account-service:2.3.2
+    label: images
+  loadtestclient-image:
+    default: 100.125.0.198:20202/maoxuepeng6459/loadtestclient:2.3.2
+    label: images
+  tx-coordinator-image:
+    default: 100.125.0.198:20202/maoxuepeng6459/tx-coordinator:2.3.2
+    label: images
+  init-db-image:
+    default: 100.125.0.198:20202/maoxuepeng6459/init-db:2.3.2
+    label: images
+    
+  nodeport:
+    default: 31080
+  image-pull-policy:
+    default: IfNotPresent
+  monitoring-group:
+    default: house-app-group
+  application-id:
+    default: house-app-dev
+  instance:
+    default: 1
+
+  cm-redis-credential:
+    default: redis-credential
+    type: string
+  cm-mysql-accountdb:
+    default: mysql-accountdb
+    type: string
+  cm-mysql-productdb:
+    default: mysql-productdb
+    type: string
+  cm-mysql-userdb:
+    default: mysql-userdb
+    type: string
+  cm-cse-credential:
+    default: cse-credential
+    type: string
+
+node_templates:
+  init-userdb:
+    type: fusionstage.nodes.Job
+    properties:
+      type: container
+    requirements:
+      - package:
+          node: init-userdb-pkg
+          relationship: fusionstage.relationships.PackageConsistsOf
+      - volume:
+          node: cm-mysql-userdb
+          relationship: fusionstage.relationships.AttachesTo
+  init-userdb-pkg:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: init-db-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        command:
+          - "/bin/bash"
+          - "/entrypoint.sh"
+          - "/sql/create_db_user.sql"
+        env:
+          - name: DB_HOST
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-userdb}
+                key: db.host
+          - name: DB_PORT
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-userdb}
+                key: db.port
+          - name: DB_NAME
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-userdb}
+                key: db.dbname
+          - name: DB_USERNAME
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-userdb}
+                key: db.username
+          - name: DB_PASSWD
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-userdb}
+                key: db.password
+  init-productdb:
+    type: fusionstage.nodes.Job
+    properties:
+      type: container
+    requirements:
+      - package:
+          node: init-productdb-pkg
+          relationship: fusionstage.relationships.PackageConsistsOf
+      - volume:
+          node: cm-mysql-productdb
+          relationship: fusionstage.relationships.AttachesTo
+  init-productdb-pkg:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: init-db-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        command:
+          - "/bin/bash"
+          - "/entrypoint.sh"
+          - "/sql/create_db_product.sql"
+        env:
+          - name: DB_HOST
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-productdb}
+                key: db.host
+          - name: DB_PORT
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-productdb}
+                key: db.port
+          - name: DB_NAME
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-productdb}
+                key: db.dbname
+          - name: DB_USERNAME
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-productdb}
+                key: db.username
+          - name: DB_PASSWD
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-productdb}
+                key: db.password
+  init-accountdb:
+    type: fusionstage.nodes.Job
+    properties:
+      type: container
+    requirements:
+      - package:
+          node: init-accountdb-pkg
+          relationship: fusionstage.relationships.PackageConsistsOf
+      - volume:
+          node: cm-mysql-accountdb
+          relationship: fusionstage.relationships.AttachesTo
+  init-accountdb-pkg:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: init-db-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        command:
+          - "/bin/bash"
+          - "/entrypoint.sh"
+          - "/sql/create_db_account.sql"
+        env:
+          - name: DB_HOST
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-accountdb}
+                key: db.host
+          - name: DB_PORT
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-accountdb}
+                key: db.port
+          - name: DB_NAME
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-accountdb}
+                key: db.dbname
+          - name: DB_USERNAME
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-accountdb}
+                key: db.username
+          - name: DB_PASSWD
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-accountdb}
+                key: db.password
+  
+  edge-service:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      type: container
+      instances: {get_input: instance}
+    requirements:
+      - package:
+          node: edge-container
+          relationship: fusionstage.relationships.PackageConsistsOf
+      - volume:
+          node: cm-cse-credential
+          relationship: fusionstage.relationships.AttachesTo
+
+  edge-container:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: edge-service-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        env:
+          - name: APPLICATION_ID
+            value: {get_input: application-id}
+        ports:
+          - containerPort: 18080
+        serviceSpec:
+          ports:
+            - port: 18080
+              nodePort: {get_input: nodeport}
+          type: NodePort
+        resourceSpec:
+          request:
+            cpu: "1"
+            memory: "2000Mi"
+          limit:
+            cpu: "1"
+            memory: "2000Mi"
+        volumes:
+        - mountPath: /opt/CSE/etc/cipher
+          name:
+            get_input: cm-cse-credential
+
+  user-service:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      type: container
+      instances: {get_input: instance}
+    requirements:
+      - package:
+          node: user-container
+          relationship: fusionstage.relationships.PackageConsistsOf
+      - volume:
+          node: cm-cse-credential
+          relationship: fusionstage.relationships.AttachesTo
+      - volume:
+          node: cm-redis-credential
+          relationship: fusionstage.relationships.AttachesTo
+      - volume:
+          node: cm-mysql-userdb
+          relationship: fusionstage.relationships.AttachesTo
+      - dependency:
+          node: init-userdb
+          relationship: fusionstage.relationships.ConnectsTo
+
+  user-container:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: user-service-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        env:
+          - name: APPLICATION_ID
+            value: {get_input: application-id}
+          - name: TCC_REDIS_HOST
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-redis-credential}
+                key: cse.tcc.transaction.redis.host
+          - name: TCC_REDIS_PORT
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-redis-credential}
+                key: cse.tcc.transaction.redis.port
+          - name: TCC_REDIS_PASSWD
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-redis-credential}
+                key: cse.tcc.transaction.redis.password
+          - name: DB_HOST
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-userdb}
+                key: db.host
+          - name: DB_PORT
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-userdb}
+                key: db.port
+          - name: DB_NAME
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-userdb}
+                key: db.dbname
+          - name: DB_USERNAME
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-userdb}
+                key: db.username
+          - name: DB_PASSWD
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-userdb}
+                key: db.password
+        resourceSpec:
+          request:
+            cpu: "1"
+            memory: "2000Mi"
+          limit:
+            cpu: "1"
+            memory: "2000Mi"
+        volumes:
+        - mountPath: /opt/CSE/etc/cipher
+          name:
+            get_input: cm-cse-credential
+
+  product-service:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      type: container
+      instances: {get_input: instance}
+    requirements:
+      - package:
+          node: product-container
+          relationship: fusionstage.relationships.PackageConsistsOf
+      - volume:
+          node: cm-cse-credential
+          relationship: fusionstage.relationships.AttachesTo
+      - volume:
+          node: cm-redis-credential
+          relationship: fusionstage.relationships.AttachesTo
+      - volume:
+          node: cm-mysql-productdb
+          relationship: fusionstage.relationships.AttachesTo
+      - dependency:
+          node: init-productdb
+          relationship: fusionstage.relationships.ConnectsTo
+
+  product-container:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: product-service-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        env:
+          - name: APPLICATION_ID
+            value: {get_input: application-id}
+          - name: TCC_REDIS_HOST
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-redis-credential}
+                key: cse.tcc.transaction.redis.host
+          - name: TCC_REDIS_PORT
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-redis-credential}
+                key: cse.tcc.transaction.redis.port
+          - name: TCC_REDIS_PASSWD
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-redis-credential}
+                key: cse.tcc.transaction.redis.password
+          - name: DB_HOST
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-productdb}
+                key: db.host
+          - name: DB_PORT
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-productdb}
+                key: db.port
+          - name: DB_NAME
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-productdb}
+                key: db.dbname
+          - name: DB_USERNAME
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-productdb}
+                key: db.username
+          - name: DB_PASSWD
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-productdb}
+                key: db.password
+        resourceSpec:
+          request:
+            cpu: "1"
+            memory: "2000Mi"
+          limit:
+            cpu: "1"
+            memory: "2000Mi"
+        volumes:
+        - mountPath: /opt/CSE/etc/cipher
+          name:
+            get_input: cm-cse-credential
+
+  customer-website:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      type: container
+      instances: {get_input: instance}
+    requirements:
+      - package:
+          node: customer-web-container
+          relationship: fusionstage.relationships.PackageConsistsOf
+      - volume:
+          node: cm-cse-credential
+          relationship: fusionstage.relationships.AttachesTo
+
+  customer-web-container:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: customer-website-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        env:
+          - name: APPLICATION_ID
+            value: {get_input: application-id}
+        resourceSpec:
+          request:
+            cpu: "1"
+            memory: "2000Mi"
+          limit:
+            cpu: "1"
+            memory: "2000Mi"
+        volumes:
+        - mountPath: /opt/CSE/etc/cipher
+          name:
+            get_input: cm-cse-credential
+
+  customer-service:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      type: container
+      instances: {get_input: instance}
+    requirements:
+      - package:
+          node: customer-container
+          relationship: fusionstage.relationships.PackageConsistsOf
+      - volume:
+          node: cm-cse-credential
+          relationship: fusionstage.relationships.AttachesTo
+      - volume:
+          node: cm-redis-credential
+          relationship: fusionstage.relationships.AttachesTo
+
+  customer-container:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: customer-service-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        env:
+          - name: APPLICATION_ID
+            value: {get_input: application-id}
+          - name: TCC_REDIS_HOST
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-redis-credential}
+                key: cse.tcc.transaction.redis.host
+          - name: TCC_REDIS_PORT
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-redis-credential}
+                key: cse.tcc.transaction.redis.port
+          - name: TCC_REDIS_PASSWD
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-redis-credential}
+                key: cse.tcc.transaction.redis.password
+        resourceSpec:
+          request:
+            cpu: "1"
+            memory: "2000Mi"
+          limit:
+            cpu: "1"
+            memory: "2000Mi"
+        volumes:
+        - mountPath: /opt/CSE/etc/cipher
+          name:
+            get_input: cm-cse-credential
+
+  account-service:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      type: container
+      instances: {get_input: instance}
+    requirements:
+      - package:
+          node: account-container
+          relationship: fusionstage.relationships.PackageConsistsOf
+      - volume:
+          node: cm-cse-credential
+          relationship: fusionstage.relationships.AttachesTo
+      - volume:
+          node: cm-redis-credential
+          relationship: fusionstage.relationships.AttachesTo
+      - volume:
+          node: cm-mysql-accountdb
+          relationship: fusionstage.relationships.AttachesTo
+      - dependency:
+          node: init-accountdb
+          relationship: fusionstage.relationships.ConnectsTo
+
+  account-container:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: account-service-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        env:
+          - name: APPLICATION_ID
+            value: {get_input: application-id}
+          - name: TCC_REDIS_HOST
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-redis-credential}
+                key: cse.tcc.transaction.redis.host
+          - name: TCC_REDIS_PORT
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-redis-credential}
+                key: cse.tcc.transaction.redis.port
+          - name: TCC_REDIS_PASSWD
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-redis-credential}
+                key: cse.tcc.transaction.redis.password
+          - name: DB_HOST
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-accountdb}
+                key: db.host
+          - name: DB_PORT
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-accountdb}
+                key: db.port
+          - name: DB_NAME
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-accountdb}
+                key: db.dbname
+          - name: DB_USERNAME
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-accountdb}
+                key: db.username
+          - name: DB_PASSWD
+            valueFrom:
+              configmapRef:
+                name: {get_input: cm-mysql-accountdb}
+                key: db.password
+        resourceSpec:
+          request:
+            cpu: "1"
+            memory: "2000Mi"
+          limit:
+            cpu: "1"
+            memory: "2000Mi"
+        volumes:
+        - mountPath: /opt/CSE/etc/cipher
+          name:
+            get_input: cm-cse-credential
+
+  loadtest-service:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      type: container
+      instances: {get_input: instance}
+    requirements:
+      - package:
+          node: loadtest-container
+          relationship: fusionstage.relationships.PackageConsistsOf
+      - volume:
+          node: cm-cse-credential
+          relationship: fusionstage.relationships.AttachesTo
+
+  loadtest-container:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: loadtestclient-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        env:
+          - name: APPLICATION_ID
+            value: {get_input: application-id}
+        resourceSpec:
+          request:
+            cpu: "1"
+            memory: "2000Mi"
+          limit:
+            cpu: "1"
+            memory: "2000Mi"
+        volumes:
+        - mountPath: /opt/CSE/etc/cipher
+          name:
+            get_input: cm-cse-credential
+
+  tx-coordinator:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      type: container
+      instances: {get_input: instance}
+    requirements:
+      - package:
+          node: tx-coordinator-container
+          relationship: fusionstage.relationships.PackageConsistsOf
+      - volume:
+          node: cm-cse-credential
+          relationship: fusionstage.relationships.AttachesTo
+
+  tx-coordinator-container:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      package:
+        image: {get_input: tx-coordinator-image}
+        imagePullPolicy: {get_input: image-pull-policy}
+        env:
+          - name: APPLICATION_ID
+            value: {get_input: application-id}
+        resourceSpec:
+          request:
+            cpu: "1"
+            memory: "2000Mi"
+          limit:
+            cpu: "1"
+            memory: "2000Mi"
+        volumes:
+        - mountPath: /opt/CSE/etc/cipher
+          name:
+            get_input: cm-cse-credential
+
+  cm-redis-credential:
+    type: fusionstage.nodes.ConfigMapVolume
+    properties:
+      createNew: false
+      name:
+        get_input: cm-redis-credential
+  cm-mysql-userdb:
+    type: fusionstage.nodes.ConfigMapVolume
+    properties:
+      createNew: false
+      name:
+        get_input: cm-mysql-userdb
+  cm-mysql-productdb:
+    type: fusionstage.nodes.ConfigMapVolume
+    properties:
+      createNew: false
+      name:
+        get_input: cm-mysql-productdb
+  cm-mysql-accountdb:
+    type: fusionstage.nodes.ConfigMapVolume
+    properties:
+      createNew: false
+      name:
+        get_input: cm-mysql-accountdb
+  cm-cse-credential:
+    type: fusionstage.nodes.ConfigMapVolume
+    properties:
+      createNew: false
+      name:
+        get_input: cm-cse-credential
+
+policies:
+  edge-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitoring-group}
+    targets:
+      - edge-service
+
+  user-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitoring-group}
+    targets:
+      - user-service
+
+  product-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitoring-group}
+    targets:
+      - product-service
+
+  customer-web-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitoring-group}
+    targets:
+      - customer-website
+
+  customer-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitoring-group}
+    targets:
+      - customer-service
+
+  account-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitoring-group}
+    targets:
+      - account-service
+
+  loadtest-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitoring-group}
+    targets:
+      - loadtest-service
+
+  tx-coordinator-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitoring-group}
+    targets:
+      - tx-coordinator
+
+outputs:
+  edge-service:
+    value: {get_attribute: [edge-service, Service, ports, 0, nodePort]}

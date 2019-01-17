@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script type="application/x-javascript">
+    addEventListener("load", function () {
+      setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+      window.scrollTo(0, 1);
+    }
+  </script>
+  <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="toastr/toastr.css" rel="stylesheet" />
+  <link href="css/font-awesome.css" rel="stylesheet" type="text/css" media="all" />
+  <script src="js/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="js/move-top.js"></script>
+  <script type="text/javascript" src="js/easing.js"></script>
+  <script src="toastr/toastr.js"></script>
+  <script type="text/javascript">
+    jQuery(document).ready(function ($) {
+      $(".scroll").click(function (event) {
+        event.preventDefault();
+        $('html,body').animate({
+          scrollTop: $(this.hash).offset().top
+        }, 1000);
+      });
+    });
+    
+    var consistenceSummary;
+  </script>
+
+  <link href="dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
+  <link href="css/highlight.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <link href="css/list.css" rel="stylesheet" type="text/css" media="all" />
+  <script src="dist/js/bootstrap-switch.js"></script>
+  <script src="js/highlight.js"></script>
+  <script src="js/main.js"></script>
+</head>
+
+<body>
+  <!-- //script-for sticky-nav -->
+  <div class="logo_products">
+    <div class="container">
+      <div class="w3ls_logo_products_left">
+        <h1>
+          <a href="index.html">
+            <span>HOUSE</span> Store</a>
+        </h1>
+      </div>
+      <div class="clearfix"> </div>
+    </div>
+  </div>
+  <!-- products-breadcrumb -->
+  <div class="products-breadcrumb">
+    <div class="container">
+      <ul>
+        <li>
+          <i style="color:#ffffff" class="fa fa-home"></i>
+          <a href="index.html">Home</a>
+          <span>|</span>
+        </li>
+        <li>抢购详情</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="productList">
+    <div style="background:#f5f5f5;padding:20px 0;">
+      <div class="container">
+        <div class="count-num clearfix">
+            <div style="display:none" class="isShow">
+                <label>房产总数：</label><span class="countNum"></span>
+                <label>当前已售：</label><span class="soldNum"></span>
+            </div>
+        </div>
+        <div class="count-num">
+          <label class="inputLabel">用户支出总金额：</lable>
+          <input class="inputCount inputUserCount" type="text">
+          <label style="margin-left:30px;" class="inputLabel">收款账户总金额：</lable>
+          <input class="inputCount inputUserAcc" type="text">
+          <label style="margin-left:30px;" class="inputLabel">房子销售总金额：</lable>
+          <input class="inputCount inputUserPro" type="text">
+        </div>
+        <div class="loadingTips" style="text-align:center; padding:200px 0;font-weight:900;">加载中，请稍等......</div>
+        <table id="Table" style="display:none" cellspacing="0" cellpadding="0">
+          <thead>
+            <tr class="clearfix" style="cursor: pointer;">
+              <th onClick="_sort()">房产名称
+                <i class="kuma-icon kuma-icon-triangle-up"> </i>
+                <i class="kuma-icon kuma-icon-triangle-down"> </i>
+              </th>
+              <th>用户名称</th>
+              <th>状态</th>
+            </tr>
+          </thead>
+          <tbody id="list">
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script src="js/bootstrap.min.js"></script>
+  <script type='text/javascript'>
+    function _sort() {
+        function sortName (a, b) {
+          if (window.sort) {
+            return b.productName.localeCompare(a.productName);
+          } else {
+            return a.productName.localeCompare(b.productName);
+          }
+
+        }
+        var temp = window.mokeOption.concat().sort(sortName);
+        if (window.sort) {
+          document.getElementsByClassName('kuma-icon-triangle-up')[0].style.borderBottomColor = '#131212';
+          document.getElementsByClassName('kuma-icon-triangle-down')[0].style.borderTopColor = '#a79e9e';
+        } else {
+          document.getElementsByClassName('kuma-icon-triangle-down')[0].style.borderTopColor = '#131212';
+          document.getElementsByClassName('kuma-icon-triangle-up')[0].style.borderBottomColor = '#a79e9e';
+        } 
+        window.sort = !window.sort;
+        tableMudel(temp);
+    };
+    var tableMudel = function (data) {
+      $('#list').html('');
+      data.map((v, k) => {
+        var userid = v.reservedUserId;
+        if(userid != -1) {
+          userid = "user" + userid;
+        } else {
+          userid = "NA";
+        }
+        var sold = "已售";
+        if(!v.sold) {
+          sold = "在售";
+        }
+        var template =
+          `
+        <tr class="clearfix">
+          <td><a href="index.html">${v.productName}</a></td>
+          <td>${userid}</td>
+          <td class="state${k}">${sold}</td>
+        </tr>
+        `
+        $('#list').append(template);
+        if (sold === '在售') {
+          $(`.state${k}`).css('color', '#499df2');
+        } else {
+          $(`.state${k}`).css('color', '#3dcca6');
+        }
+        if (data.length - 1 === k) {
+          $('tbody tr').eq(k).css('border', 'none');
+        };
+      });
+    };
+    window.mokeOption = [];
+    _sort();
+    window.sort = false;
+
+    function getCookie(c_name)
+      {
+      if (document.cookie.length>0)
+        {
+        c_start=document.cookie.indexOf(c_name + "=")
+        if (c_start!=-1)
+          { 
+          c_start=c_start + c_name.length+1 
+          c_end=document.cookie.indexOf(";",c_start)
+          if (c_end==-1) c_end=document.cookie.length
+          return unescape(document.cookie.substring(c_start,c_end))
+          } 
+        }
+      return ""
+      }
+    $(document).ready(function () {
+      $('.loadingTips').text('加载中，请稍等......');
+      $.ajax({
+        type: 'GET',
+        url: `/api/product-service/searchAll?userId=${getCookie('session-id')}`,
+        success: function (data) {
+          $('#Table').show();
+          $('.loadingTips').hide();
+          var newData = data.concat();
+          if (newData.length > 1) {
+            if (newData[data.length - 1].id == 1000000) {
+              var lastOne = newData.splice(newData.length - 1, 1);
+              $('.countNum').text(100);                
+              $('.soldNum').text(lastOne[0] && lastOne[0].reservedUserId || 0);
+              $('.isShow').show();
+              window.mokeOption = newData;
+              _sort();
+            } else {
+              $('.isShow').hide();
+              window.mokeOption = data;
+              _sort();
+            }
+          } else {
+            $('.isShow').hide();
+            window.mokeOption = data;
+            _sort();
+          };
+          
+          //tableMudel(data);
+        },
+        error: function () {
+          $('#Table').hide();
+          $('.loadingTips').show().text('服务繁忙，请稍后重试！');
+        },
+        contentType: "application/json",
+        async: false
+      })
+
+    $.ajax({
+        type: 'GET',
+        url: "/api/customer-service/balance",
+        success: function (data) {
+          // "user:9000000.0;acct:9000000.0;prod:9000000.0"
+          var userCount = data.split(';');
+          var user = userCount[0].split(':')[1];
+          var acct = userCount[1].split(':')[1];
+          var prod = userCount[2].split(':')[1];
+          $('.inputUserCount').val(user);
+          $('.inputUserAcc').val(acct);
+          $('.inputUserPro').val(prod);
+          // document.getElementById("consistenceSummary").value=data;
+        },
+        contentType: "application/json",
+        async: false
+    })
+  })
+  </script>
+</body>
+
+</html>

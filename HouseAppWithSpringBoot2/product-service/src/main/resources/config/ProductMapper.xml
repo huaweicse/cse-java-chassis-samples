@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.cse.houseapp.product.dao.ProductMapper">
+    <resultMap id="productInfo"
+        type="com.huawei.cse.houseapp.product.api.ProductInfo">
+        <result column="ID" jdbcType="BIGINT" property="id" />
+        <result column="PROD_NAME" jdbcType="VARCHAR" property="productName" />
+        <result column="RESERVED" jdbcType="BOOLEAN" property="reserved" />
+        <result column="PRICE" jdbcType="DECIMAL" property="price" />
+        <result column="SOLD" jdbcType="BOOLEAN" property="sold" />
+        <result column="RESERVED_USERID" jdbcType="BIGINT" property="reservedUserId"/>
+    </resultMap>
+
+    <sql id="all_column">
+        ID, PROD_NAME, RESERVED, PRICE, SOLD, RESERVED_USERID
+    </sql>
+
+    <select id="getAllProducts" resultMap="productInfo">
+        select
+        <include refid="all_column" />
+        from T_PRODUCT order by PROD_NAME
+    </select>
+
+    <insert id="createProduct">
+        insert into T_PRODUCT (
+        <include refid="all_column" />
+        )
+        values (#{id,jdbcType=BIGINT}, #{productName,jdbcType=VARCHAR},
+        #{reserved,jdbcType=BOOLEAN},
+        #{price,jdbcType=DECIMAL},  #{sold,jdbcType=BOOLEAN}, #{reservedUserId,jdbcType=BIGINT})
+    </insert>
+
+    <select id="getProductInfo" parameterType="java.lang.Long" resultMap="productInfo">
+        select
+        <include refid="all_column" />
+        from T_PRODUCT where ID = #{0,jdbcType=BIGINT} for update
+    </select>
+
+    <update id="updateProductInfo" parameterType="com.huawei.cse.houseapp.product.api.ProductInfo">
+        update
+        T_PRODUCT
+        set
+        RESERVED = #{reserved,jdbcType=BOOLEAN},
+        SOLD =
+        #{sold,jdbcType=BOOLEAN},
+        RESERVED_USERID = #{reservedUserId,jdbcType=BIGINT}
+        where
+        ID = #{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="clear">
+        delete from T_PRODUCT
+    </delete>
+
+    <select id="queryReduced" resultType="java.lang.Double">
+        select sum(PRICE)
+        from T_PRODUCT where SOLD = 1
+    </select>
+</mapper>

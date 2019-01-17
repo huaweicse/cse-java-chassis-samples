@@ -1,0 +1,16 @@
+cse-config-order: 100
+
+## Spring Boot configurations
+server:
+  port: 9091
+spring:
+  application:
+    name: customer-website
+
+## CSE configurations
+cse:
+  rest:
+    address: 0.0.0.0:9091
+## static web site will token root
+    servlet:
+      urlPattern: /api/*
