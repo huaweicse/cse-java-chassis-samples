@@ -3,8 +3,8 @@ package com.huawei.cse.houseapp.account.service;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response.Status;
 
-import org.apache.servicecomb.saga.omega.transaction.annotations.Compensable;
-import org.apache.servicecomb.saga.omega.transaction.annotations.Participate;
+import org.apache.servicecomb.pack.omega.transaction.annotations.Compensable;
+import org.apache.servicecomb.pack.omega.transaction.annotations.Participate;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 import org.springframework.stereotype.Service;
 
