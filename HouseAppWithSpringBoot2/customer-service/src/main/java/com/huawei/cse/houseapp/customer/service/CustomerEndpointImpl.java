@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -25,6 +27,12 @@ import io.swagger.annotations.ApiResponse;
 @RestSchema(schemaId = "customer")
 @RequestMapping(path = "/")
 public class CustomerEndpointImpl implements CustomerEndpoint {
+  @Value("${cse.test.house.value}")
+  private String valueTest;
+
+  @Autowired
+  private ConfigurationPropertiesModel model;
+
   @Inject
   public CustomerService customerSerivce;
 
@@ -43,6 +51,11 @@ public class CustomerEndpointImpl implements CustomerEndpoint {
   public boolean buyWithTransactionSaga(@RequestHeader(name = "userId") long userId,
       @RequestParam(name = "productId") long productId, @RequestParam(name = "price") double price) {
     return customerSerivce.buyWithTransactionSaga(userId, productId, price);
+  }
+
+  @GetMapping(path = "springBootPropertyTest")
+  public String springBootPropertyTest() {
+    return valueTest + "--" + model.getModelValue();
   }
 
   @Override
