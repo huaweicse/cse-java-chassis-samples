@@ -27,8 +27,14 @@ import io.swagger.annotations.ApiResponse;
 @RestSchema(schemaId = "customer")
 @RequestMapping(path = "/")
 public class CustomerEndpointImpl implements CustomerEndpoint {
-  @Value("${cse.test.house.value}")
+  @Value("${cse.test.house.modelValue:'abc'}")
   private String valueTest;
+
+  @Value("${cse.test.house.yamlValue}")
+  private String yamlValue;
+
+  @Value("${cse.test.house.yamlValueOverride}")
+  private String yamlValueOverride;
 
   @Autowired
   private ConfigurationPropertiesModel model;
@@ -55,7 +61,8 @@ public class CustomerEndpointImpl implements CustomerEndpoint {
 
   @GetMapping(path = "springBootPropertyTest")
   public String springBootPropertyTest() {
-    return valueTest + "--" + model.getModelValue();
+    return valueTest + "--" + yamlValue + "--" + "--" + yamlValueOverride + "--" + model.getModelValue() + "--"
+        + model.getYamlValue() + "--" + model.getYamlValueOverride();
   }
 
   @Override

@@ -13,6 +13,10 @@ service_description:
   version: 0.0.1
 
 cse:
+  test:
+    house:
+      yamlValue: xyz
+      yamlValueOverride: abc
   service:
     registry:
       address: https://cse.cn-north-1.myhuaweicloud.com

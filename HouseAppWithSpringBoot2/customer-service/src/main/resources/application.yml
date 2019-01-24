@@ -12,3 +12,6 @@ server:
 cse:
   rest:
     address: 0.0.0.0:9093
+  test:
+    house:
+      yamlValueOverride: xyz

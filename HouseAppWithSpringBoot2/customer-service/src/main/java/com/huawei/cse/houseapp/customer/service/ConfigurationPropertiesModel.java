@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "cse.test.house")
 public class ConfigurationPropertiesModel {
   private String modelValue;
+  
+  private String yamlValue;
+  
+  private String yamlValueOverride;
 
   public String getModelValue() {
     return modelValue;
@@ -14,6 +18,22 @@ public class ConfigurationPropertiesModel {
 
   public void setModelValue(String modelValue) {
     this.modelValue = modelValue;
+  }
+
+  public String getYamlValueOverride() {
+    return yamlValueOverride;
+  }
+
+  public void setYamlValueOverride(String yamlValueOverride) {
+    this.yamlValueOverride = yamlValueOverride;
+  }
+
+  public String getYamlValue() {
+    return yamlValue;
+  }
+
+  public void setYamlValue(String yamlValue) {
+    this.yamlValue = yamlValue;
   }
   
 }
