@@ -1,0 +1,22 @@
+cse-config-order: 10
+
+APPLICATION_ID: porter-application
+service_description:
+  version: 0.0.1
+
+cse:
+  service:
+    registry:
+      address: https://cse.cn-north-1.myhuaweicloud.com
+      instance:
+        watch: false
+  config:
+    client:
+      serverUri: https://cse.cn-north-1.myhuaweicloud.com
+      refreshMode: 1
+      refresh_interval: 5000
+
+  credentials:
+    accessKey: xx
+    secretKey: xx
+    akskCustomCipher: default

@@ -1,0 +1,9 @@
+# override common configurations in common module
+cse-config-order: 100
+
+service_description:
+  name: user-service
+
+cse:
+  rest:
+    address: 0.0.0.0:9093

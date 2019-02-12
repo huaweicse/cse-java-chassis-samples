@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>demo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="demo" />
+        <script type="application/x-javascript">
+            addEventListener("load", function() {
+                setTimeout(hideURLbar, 0);
+            }, false);
+
+            function hideURLbar() {
+                window.scrollTo(0, 1);
+            }
+        </script>
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="toastr/toastr.css" rel="stylesheet" />
+        <link href="css/font-awesome.css" rel="stylesheet" type="text/css" media="all" />
+        <script src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/move-top.js"></script>
+        <script type="text/javascript" src="js/easing.js"></script>
+        <script src="toastr/toastr.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $(".scroll").click(function(event) {
+                    event.preventDefault();
+                    $('html,body').animate({
+                        scrollTop: $(this.hash).offset().top
+                    }, 1000);
+                });
+            });
+        </script>
+
+        <link href="dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
+        <link href="css/highlight.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
+        <script src="dist/js/bootstrap-switch.js"></script>
+        <script src="js/highlight.js"></script>
+        <script src="js/main.js"></script>
+        <!-- start-smoth-scrolling -->
+    </head>
+
+    <body>
+        <script>
+            $(".w3_login").hide();
+            var userinfo = {
+                "id": -1,
+                "name": "apm",
+                "password": "123456"
+            };
+
+            function onClkLogin() {
+                if(userinfo.id > -1) {
+                    return;
+                }
+                $('#myModal').modal();
+            }
+
+            function onClkLogout() {
+                window.localStorage.removeItem("demologin");
+                $(".product_list_header_wwd_logout").hide();
+                $(".product_list_header_wwd_login").show();
+                $("#loginuser").hide();
+                userinfo.id = -1;
+            }
+        </script>
+
+        <!-- //script-for sticky-nav -->
+    <div class="logo_products">
+            <div class="container">
+                <div class="w3ls_logo_products_left">
+                    <h1><a ><span>Demo</span>Porter</a></h1>
+                </div>
+
+               <div id="loginuser" style="color:cornflowerblue;float:left;font-size: 20px;margin-top: 35px;margin-left: 30px;cursor: pointer;"
+                    onclick="onClkLogin()">登录</div>
+
+               <div class="clearfix"> </div>
+            </div>
+    </div>
+    
+    <div class="top-brands">
+        <form method="POST" enctype="multipart/form-data"
+            action="/api/file-service/upload">
+            <p>
+                File Name: <input type="file" name="fileName" />
+            </p>
+            <p>
+                <input type="submit" value="上传" />
+            </p>
+        </form>
+    </div>
+    
+    
+    <!-- //header -->
+    <!-- banner -->
+    <div class="w3l_banner_nav_right" style="display: none;">
+        <section class="slider">
+            <div class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <div class="w3l_banner_nav_right_banner">
+                            <h3>Make your
+                                <span>food</span> with Spicy.</h3>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="w3l_banner_nav_right_banner1">
+                            <h3>Make your
+                                <span>food</span> with Spicy.</h3>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="w3l_banner_nav_right_banner2">
+                            <h3>upto
+                                <i>50%</i> off.</h3>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <!-- flexSlider -->
+        <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" property="" />
+        <script defer src="js/jquery.flexslider.js"></script>
+        <script type="text/javascript">
+            $(window).load(function () {
+                $('.flexslider').flexslider({
+                    animation: "slide",
+                    start: function (slider) {
+                        $('body').removeClass('loading');
+                    }
+                });
+            });
+        </script>
+        <!-- //flexSlider -->
+    </div>
+    </div>
+    <!-- banner -->
+    <!-- top-brands -->
+    <div class="top-brands">
+        <script src="js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                var userStr = window.localStorage.getItem("demologin");
+                if(userStr !== null) {
+                    var userArr = userStr.split(",");
+                    userinfo.id = parseInt(userArr[0]);
+                    userinfo.name = userArr[1];
+                    userinfo.password = userArr[2];
+                    $("#loginuser").text(userinfo.name);
+                    $("#loginuser").css({
+                        "color": "seagreen",
+                        "cursor": "auto"
+                    });
+
+                    $(".product_list_header_wwd_logout").show();
+                    $(".product_list_header_wwd_login").hide();
+                } else {
+                    $(".product_list_header_wwd_logout").hide();
+                    $(".product_list_header_wwd_login").show();
+                    $("#loginuser").hide();
+                }
+                
+                $(".dropdown").hover(
+                    function() {
+                        $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                        $(this).toggleClass('open');
+                    },
+                    function() {
+                        $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                        $(this).toggleClass('open');
+                    }
+                );
+            });
+        </script>
+        <script src="js/minicart.js"></script>
+
+        <!--<div class="container">-->
+        <!-- Trigger the modal with a button -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="w3_login">
+                <div class="w3_login_module">
+                    <div class="module form-module">
+                        <div class="toggle" onclick="onClkHideLogin()"><i class="fa fa-times"></i>
+                        </div>
+                        <div class="form">
+                            <h2>登录</h2>
+                            <input id="username" type="text" name="Username" placeholder="Username" required=" ">
+                            <input id="paasword" type="password" name="Password" placeholder="Password" required=" ">
+                            <input type="button" value="Login" onclick="loginAction()">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--</div>-->
+
+        <script>
+            function setCookie(name,value,days) {
+                var expires = "";
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (days*24*60*60*1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+            }
+            function getCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for(var i=0;i < ca.length;i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                }
+                return null;
+            }
+            function eraseCookie(name) {   
+                document.cookie = name+'=; Max-Age=-99999999;';  
+            }
+
+            function onClkHideLogin() {
+                $('#myModal').modal('hide');
+            }
+            
+            function loginAction() {
+                 var username = document.getElementById("username").value;
+                 var password = document.getElementById("paasword").value;
+                 var formData = {};
+                 formData.userName = username;
+                 formData.password = password;
+                  
+                 $.ajax({
+                    type: 'POST',
+                    url: "/api/user-service/login",
+                    <!-- headers: { 'userName': username, 'password': password }, -->
+                    data: formData,
+                    success: function (data) {
+                        setCookie("session-id", data.sessiondId, false);
+                        window.alert('登陆成功！');
+                    },
+                    error: function(data) {
+                        console.log(data);
+                        window.alert('登陆失败！' + data);
+                    },
+                    async: true
+                });
+            }
+        </script>
+
+        <script>
+            function onClkSettingAuto() {
+                $('#autoDlg').modal();
+                setTimeout(function() {
+                    var checkAll = true;
+                    for(var id in AUTO_OPR) {
+                        if(AUTO_OPR[id].open) {
+                            $('#' + id + "_open").prop("checked", true);
+                        } else {
+                            $('#' + id + "_open").prop("checked", false);
+                            checkAll = false;
+                        }
+
+                        $("#" + id + " .period-show").text(AUTO_OPR[id].period);
+                    }
+                    if(checkAll) {
+                        $("#all_open").prop("checked", true);
+                    } else {
+                        $("#all_open").prop("checked", false);
+                    }
+                }, 0)
+            }
+
+            $(document).ready(function() {
+                $("#autoLogin .period-input").blur(function() {
+                    $("#autoLogin .period-show").text($("#autoLogin .period-input").val() || $("#autoLogin .period-show").text());
+                    inputBlur("autoLogin");
+                });
+                $("#autoBuy .period-input").blur(function() {
+                    $("#autoBuy .period-show").text($("#autoBuy .period-input").val() || $("#autoBuy .period-show").text());
+                    inputBlur("autoBuy");
+                });
+                $("#autoSearch .period-input").blur(function() {
+                    $("#autoSearch .period-show").text($("#autoSearch .period-input").val() || $("#autoSearch .period-show").text());
+                    inputBlur("autoSearch");
+                });
+                $("#autoSearchAll .period-input").blur(function() {
+                    $("#autoSearchAll .period-show").text($("#autoSearchAll .period-input").val() || $("#autoSearchAll .period-show").text());
+                    inputBlur("autoSearchAll");
+                });
+
+                $("#all_open").bootstrapSwitch('destroy');
+            });
+
+            function editClk(id) {
+                $("#" + id + " .period-show").hide();
+                $("#" + id + " .period-edit").hide();
+                $("#" + id + " .period-input").show();
+                document.getElementById(id + "_input").focus();
+                var period = $("#" + id + " .period-show").text();
+                $("#" + id + "_input").val(period);
+            }
+
+            function inputBlur(id) {
+                $("#" + id + " .period-show").show();
+                $("#" + id + " .period-edit").show();
+                $("#" + id + " .period-input").hide();
+            }
+
+            function onClkHideAuto() {
+                $('#autoDlg').modal("hide");
+            }
+            var login_timer, buy_timer, search_timer, searchAll_timer;
+
+            function clearOldTimer() {
+                var timers = [login_timer, buy_timer, search_timer, searchAll_timer];
+                for(i = 0; i < timers.length; i++) {
+                    if(timers[i]) {
+                        clearInterval(timers[i]);
+                    }
+                }
+            }
+
+            function setIntervalLogin() {
+                login_timer = setInterval(function() {
+                    if(!AUTO_OPR["autoLogin"].open) {
+                        return;
+                    }
+                    var reqdata = {
+                        "id": 0,
+                        "name": "apm",
+                        "password": "123456"
+                    }
+                    //                  ajaxPostFunc("/user/login", reqdata);
+                }, AUTO_OPR["autoLogin"].period * 1000);
+            }
+
+            function setIntervalBuy() {
+                buy_timer = setInterval(function() {
+                    if(!AUTO_OPR["autoBuy"].open) {
+                        return;
+                    }
+                    var reqdata = {
+                        user: {
+                            id: 0,
+                            name: "apm",
+                            password: "123456"
+                        },
+                        productidList: [1, 2]
+                    }
+                    //                  ajaxPostFunc("/product/buy/0", reqdata);
+                }, AUTO_OPR["autoBuy"].period * 1000);
+            }
+
+            function setIntervalSearch() {
+                search_timer = setInterval(function() {
+                    if(!AUTO_OPR["autoSearch"].open) {
+                        return;
+                    }
+                    //                  ajaxGetFunc("/product/search?productName=");
+                }, AUTO_OPR["autoSearch"].period * 1000);
+            }
+
+            function setIntervalSearchAll() {
+                searchAll_timer = setInterval(function() {
+                    if(!AUTO_OPR["autoSearchAll"].open) {
+                        return;
+                    }
+                    //                  ajaxGetFunc("/product/searchAll");
+                }, AUTO_OPR["autoSearchAll"].period * 1000);
+            }
+
+            function ajaxGetFunc(url) {
+                $.get(url + "", function(data) {
+                    console.log(data);
+                })
+            }
+
+            function ajaxPostFunc(url, reqdata) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: JSON.stringify(reqdata),
+                    success: function a(data) {
+                        console.log(data)
+                    },
+                    contentType: "application/json",
+                    async: true
+                })
+            }
+
+            function onkeyupClk(id) {
+                var value = $("#" + id).val();
+                value = value.replace(/\D/g, '');
+                if(parseInt(value) > 600) {
+                    $('#' + id).popover('show');
+                    value = (value - value % 10) / 10;
+                }
+                $("#" + id).val(value);
+                setTimeout(function() {
+                    $('#' + id).popover('hide');
+                }, 3000)
+            }
+
+            function checkOpenInput(cId) {
+                //全选
+                if(cId === "all") {
+                    for(var id in AUTO_OPR) {
+                        if($("#all_open").prop("checked")) {
+                            $("#" + id + "_open").prop("checked", true);
+                        } else {
+                            $("#" + id + "_open").prop("checked", false);
+                        }
+                    }
+                } else {
+                    var isAllCheck = true;
+                    for(var id in AUTO_OPR) {
+                        var checked = $("#" + id + "_open").prop("checked");
+                        if(!checked) {
+                            isAllCheck = false;
+                        }
+                    }
+                    if(isAllCheck) {
+                        $("#all_open").prop("checked", true);
+                    } else {
+                        $("#all_open").prop("checked", false);
+                    }
+                }
+            }
+        </script>
+        <style>
+            #autoLogin td {
+                vertical-align: middle;
+                height: 60px;
+            }
+            
+            #autoBuy td {
+                vertical-align: middle;
+                height: 60px;
+            }
+            
+            #autoSearch td {
+                vertical-align: middle;
+                height: 60px;
+            }
+            
+            #autoSearchAll td {
+                vertical-align: middle;
+                height: 60px;
+            }
+            
+            .period-edit {
+                margin-left: 10px;
+                cursor: pointer;
+            }
+            
+            .period-show {
+                font-size: 14px;
+            }
+            
+            .auto-footer {
+                width: 100%;
+                height: 50px;
+                margin-top: -20px;
+                line-height: 50px;
+            }
+            
+            .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary,
+            .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
+                background: #FA1818;
+            }
+            
+            .btn-primary {
+                background: #84C639;
+                border-color: #84C639;
+            }
+            
+            .btn-primary:hover {
+                background: #FA1818;
+                border-color: #FA1818;
+            }
+            
+            .btn-primary:active {
+                background: #FA1818;
+                border-color: #FA1818;
+            }
+        #userTip {
+            position: absolute;
+            top: 40px;
+            min-width: 230px;
+            background: #ffffff;
+            border: 1px solid #3dcca6;
+            border-radius: 5px;
+            z-index: 100;
+            padding: 0 5px;
+            display: none;
+            box-shadow: 0 0 5px #999999;
+        }
+
+        #userTip::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ffffff;
+            margin-top: -5px;
+            left: 110px;
+            transform: rotate(45deg);
+        }
+
+        #userTip>p {
+            height: 40px;
+            line-height: 40px;
+        }
+
+        #userTip>p>span {
+            text-align: center;
+        }
+
+        .userNum {
+            color: #ff4c4c;
+        }
+        </style>
+        <div class="modal fade" id="autoDlg" role="dialog">
+            <div class="w3_login">
+                <div class="w3_login_module">
+                    <div class="module form-module" style="max-width:800px;">
+                        <div class="toggle" onclick="onClkHideAuto()"><i class="fa fa-times"></i>
+                        </div>
+                        <table class="table table-hover" style="width:800px;margin-left:auto;margin-right:auto;">
+                            <thead>
+                                <tr style="height: 60px;">
+                                    <th>
+                                        <span>操作</span>
+                                    </th>
+                                    <th>
+                                        <span style="float:left;display:inline-block;">开启</span>
+                                        <span style="float:left;display:inline-block;margin-left:5px;">
+                                            <input id="all_open" onclick="checkOpenInput('all')" type="checkbox"></input>
+                                        </span>
+                                    </th>
+                                    <th style="width:240px;" id="all">
+                                        <span>调用周期(秒)</span>
+                                        <span class="period-show">60</span><span class="period-edit" onclick="editClk('all')"><img src="./images/edit.png"/></span>
+                                        <input id="all_input" style="width:100px;display:none;" ata-container="body" data-toggle="popover" data-placement="right" data-content="调用周期不大于600秒" class="period-input" onkeyup="onkeyupClk('all_input')"></input>
+                                    </th>
+                                    <th>URL</th>
+                                    <th>备注</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="autoLogin">
+                                    <td>登陆</td>
+                                    <td>
+                                        <input id="autoLogin_open" onclick="checkOpenInput('autoLogin')" type="checkbox"></input>
+                                    </td>
+                                    <td>
+                                        <span class="period-show">60</span><span class="period-edit" onclick="editClk('autoLogin')"><img src="./images/edit.png"/></span>
+                                        <input id="autoLogin_input" ata-container="body" data-toggle="popover" data-placement="right" data-content="调用周期不大于600秒" class="period-input" onkeyup="onkeyupClk('autoLogin_input')"></input>
+                                    </td>
+                                    <td>/user/login</td>
+                                    <td>慢调用：时延1秒</td>
+                                </tr>
+                                <tr id="autoBuy">
+                                    <td>购买</td>
+                                    <td>
+                                        <input id="autoBuy_open" onclick="checkOpenInput('autoBuy')" type="checkbox"></input>
+                                    </td>
+                                    <td>
+                                        <span class="period-show">60</span><span class="period-edit" onclick="editClk('autoBuy')"><img src="./images/edit.png"/></span>
+                                        <input id="autoBuy_input" data-toggle="popover" data-placement="right" data-content="调用周期不大于600秒" class="period-input" onkeyup="onkeyupClk('autoBuy_input')"></input>
+                                    </td>
+                                    <td>/product/buy</td>
+                                    <td>错误调用：失败率50%</td>
+                                </tr>
+                                <tr id="autoSearch">
+                                    <td>查询</td>
+                                    <td>
+                                        <input id="autoSearch_open" onclick="checkOpenInput('autoSearch')" type="checkbox">
+                                    </td>
+                                    <td>
+                                        <span class="period-show">60</span><span class="period-edit" onclick="editClk('autoSearch')"><img src="./images/edit.png"/></span>
+                                        <input id="autoSearch_input" data-toggle="popover" data-placement="right" data-content="调用周期不大于600秒" class="period-input" onkeyup="onkeyupClk('autoSearch_input')"></input>
+                                    </td>
+                                    <td>/product/search</td>
+                                    <td></td>
+                                </tr>
+                                <tr id="autoSearchAll">
+                                    <td>查询全部</td>
+                                    <td>
+                                        <input id="autoSearchAll_open" onclick="checkOpenInput('autoSearchAll')" type="checkbox">
+                                    </td>
+                                    <td>
+                                        <span class="period-show">60</span><span class="period-edit" onclick="editClk('autoSearchAll')"><img src="./images/edit.png"/></span>
+                                        <input id="autoSearchAll_input" data-toggle="popover" data-placement="right" data-content="调用周期不大于600秒" class="period-input" onkeyup="onkeyupClk('autoSearchAll_input')"></input>
+                                    </td>
+                                    <td>/product/searchAll</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="auto-footer">
+                            <button type="button" onclick="onClkCofirmAuto()" style="float:right;margin-right:20px;margin-top:10px;width:60px;" class="btn btn-primary">确定</button>
+                            <button type="button" onclick="onClkHideAuto()" style="float:right;margin-right:20px;margin-top:10px;width:60px;" class="btn btn-default">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+
+</html>
