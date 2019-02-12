@@ -1,1 +1,2 @@
 com.huawei.cse.porter.gateway.ApiDispatcher
+com.huawei.cse.porter.gateway.StaticWebpageDispatcher

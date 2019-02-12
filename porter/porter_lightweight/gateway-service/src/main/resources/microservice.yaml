@@ -30,3 +30,6 @@ ssl.keyStoreType: PKCS12
 ssl.keyStoreValue: Changeme_123
 ssl.crl: revoke.crl
 ssl.sslCustomClass: com.huawei.cse.porter.gateway.EdgeSSLCustom
+
+servicecomb.http.dispatcher.edge.default.enabled: false
+servicecomb.http.dispatcher.rest.enabled: false
