@@ -33,3 +33,4 @@ ssl.sslCustomClass: com.huawei.cse.porter.gateway.EdgeSSLCustom
 
 servicecomb.http.dispatcher.edge.default.enabled: false
 servicecomb.http.dispatcher.rest.enabled: false
+gateway.webroot: /code/cse-java-chassis-samples/porter/porter_lightweight/gateway-service/src/main/resources

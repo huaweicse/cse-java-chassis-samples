@@ -17,6 +17,6 @@ cse:
       refresh_interval: 5000
 
   credentials:
-    accessKey: xx
-    secretKey: xx
+    accessKey: XT3POEE8TJEGJD77MO45
+    secretKey: FA7xU12XXNJgTOzd6xBHXj0t5rAfiDZnllc1BkFn
     akskCustomCipher: default

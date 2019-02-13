@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>PORTER</title>
+        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>
+    </head>
+
+    <body>
+    <div class="header">
+        <h2>登录</h2>
+    </div>
+    <div class="section">
+        <form method="POST" enctype="multipart/form-data">
+            <input id="username" type="text" placeholder="Username" required="true"/>
+            <input id="paasword" type="password" placeholder="Password" required="true"/>
+            <input type="button" value="登录" onclick="loginAction()">
+        </form>
+    </div>
+    <div class="footer">
+        <p id="error" hidden="true" class="error"/>
+    </div>
+    </body>
+
+</html>
