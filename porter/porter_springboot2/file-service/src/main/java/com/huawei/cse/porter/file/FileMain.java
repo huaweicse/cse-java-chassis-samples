@@ -1,11 +1,17 @@
 package com.huawei.cse.porter.file;
 
-import org.apache.servicecomb.foundation.common.utils.BeanUtils;
-import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
+import org.apache.servicecomb.springboot2.starter.EnableServiceComb;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
+@EnableServiceComb
 public class FileMain {
     public static void main(String[] args) throws Exception {
-        Log4jUtils.init();
-        BeanUtils.init();
+      try {
+        SpringApplication.run(FileMain.class, args);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
 }

@@ -30,12 +30,20 @@
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>metrics-core</artifactId>
     </dependency>
+        <dependency>
+      <groupId>org.apache.servicecomb</groupId>
+      <artifactId>spring-boot2-starter-standalone</artifactId>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
