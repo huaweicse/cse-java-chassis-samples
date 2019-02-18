@@ -21,20 +21,20 @@ export JAVA_OPT="-Dcse.credentials.accessKey=YourAccessKey -Dcse.credentials.sec
 * 启动user-service:
 
 ```
-java $JAVA_OPT -Ddb.url="jdbc:mysql://localhost/porter_user_db?useSSL=false" -Ddb.username=root -Ddb.password=root -jar porter-user-service-0.0.1-SNAPSHOT.jar
+java $JAVA_OPT -Ddb.url="jdbc:mysql://localhost/porter_user_db?useSSL=false" -Ddb.username=root -Ddb.password=root -jar porter-user-service-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &
 ```
 
 * 启动file-service:
 
 ```
-java $JAVA_OPT -jar porter-file-service-0.0.1-SNAPSHOT.jar
+java $JAVA_OPT -jar porter-file-service-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &
 ```
 
 * 启动gateway-serivce:
 
-gateway-service包含了静态页面文件，在resources/ui目录。首先需要将页面文件拷贝到WEB主目录，比如: /var/webapp，然后将ui目录整体拷贝到/var/webapp/ui目录。启动：
+gateway-service包含了静态页面文件，在resources/ui目录。首先需要将页面文件拷贝到WEB主目录（相对路径，当前运行目录），比如: webapp，然后将ui目录整体拷贝到/var/webapp/ui目录。启动：
 ```
-java -Dgateway.webroot=/var/webapp -jar porter-gateway-service-0.0.1-SNAPSHOT.jar
+java $JAVA_OPT -Dgateway.webroot=webapp -jar porter-gateway-service-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &
 ```
 
 # 使用
