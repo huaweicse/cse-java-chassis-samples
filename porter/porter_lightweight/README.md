@@ -32,14 +32,14 @@ java $JAVA_OPT -jar porter-file-service-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &
 
 * 启动gateway-serivce:
 
-gateway-service包含了静态页面文件，在resources/ui目录。首先需要将页面文件拷贝到WEB主目录（相对路径，当前运行目录），比如: webapp，然后将ui目录整体拷贝到/var/webapp/ui目录。启动：
+gateway-service包含了静态页面文件，在resources/ui目录。首先需要将页面文件拷贝到WEB主目录（相对路径，当前运行目录），比如: webapp，然后将ui目录整体拷贝到webapp/ui目录。启动：
 ```
 java $JAVA_OPT -Dgateway.webroot=webapp -jar porter-gateway-service-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &
 ```
 
 # 使用
 
-1. 输入: http://localhost:9090/ui/login.html，使用admin或者guest登陆，密码为test。
+1. 输入: http://localhost:9090/ui/login.html 使用admin或者guest登陆，密码为test。
 2. 选择一个文件上传，上传成功，上传成功后的文件会保存在file-service的当前目录， 文件名称是一个随机的数字，这个数字就是文件ID。
 3. 删除文件：输入上一步的文件ID，点击删除。 如果是admin用户，上传成功；如果是guest用户，上传失败。
 
