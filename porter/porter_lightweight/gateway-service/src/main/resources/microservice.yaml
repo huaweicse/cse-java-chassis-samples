@@ -16,6 +16,12 @@ cse:
   uploads:
     directory: tmp_for_upload_gateway
 
+  accesslog:
+    enabled: true
+  metrics:
+    window_time: 30000
+    publisher.defaultLog.enabled: true
+
 #########SSL options
 ssl.protocols: TLSv1.2
 ssl.authPeer: false
