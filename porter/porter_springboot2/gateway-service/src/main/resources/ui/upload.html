@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>PORTER</title>
+        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/upload.js"></script>
+    </head>
+
+    <body>
+    <div class="header">
+        <h2>上传</h2>
+    </div>
+    <div class="section">
+        <form id="upload_form" method="POST">
+            <p>
+                File Name: <input type="file" name="fileName" />
+            </p>
+            <p>
+                <input type="button" value="上传" onclick="uploadAction()">
+            </p>
+        </form>
+    </div>
+
+    <div class="header">
+        <h2>删除文件</h2>
+    </div>
+    <div class="section">
+        <form id="delete_form" method="DELETE">
+            <p>
+                File ID: <input id="fileID" type="text"/>
+            </p>
+            <p>
+                <input type="button" value="删除" onclick="deleteAction()">
+            </p>
+        </form>
+    </div>
+    <div class="footer">
+        <p id="error" hidden="true" class="error"/>
+    </div>
+    </body>
+
+</html>

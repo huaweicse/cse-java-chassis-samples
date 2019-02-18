@@ -1,0 +1,42 @@
+# override common configurations in common module
+cse-config-order: 100
+
+service_description:
+  name: gateway-service
+
+cse:
+  rest:
+    address: 0.0.0.0:9090?sslEnabled=false
+
+  handler:
+    chain:
+      Consumer:
+        default: auth,perf-stats,qps-flowcontrol-consumer,loadbalance,bizkeeper-consumer
+
+  uploads:
+    directory: tmp_for_upload_gateway
+
+  accesslog:
+    enabled: true
+  metrics:
+    window_time: 30000
+    publisher.defaultLog.enabled: true
+
+#########SSL options
+ssl.protocols: TLSv1.2
+ssl.authPeer: false
+ssl.checkCN.host: false
+
+#########certificates config
+ssl.trustStore: trust.jks
+ssl.trustStoreType: JKS
+ssl.trustStoreValue: Changeme_123
+ssl.keyStore: server.p12
+ssl.keyStoreType: PKCS12
+ssl.keyStoreValue: Changeme_123
+ssl.crl: revoke.crl
+ssl.sslCustomClass: com.huawei.cse.porter.gateway.EdgeSSLCustom
+
+servicecomb.http.dispatcher.edge.default.enabled: false
+servicecomb.http.dispatcher.rest.enabled: false
+gateway.webroot: /code/cse-java-chassis-samples/porter/porter_lightweight/gateway-service/src/main/resources
