@@ -11,7 +11,7 @@ cse:
   handler:
     chain:
       Consumer:
-        default: perf-stats,qps-flowcontrol-consumer,loadbalance,bizkeeper-consumer
+        default: auth,perf-stats,qps-flowcontrol-consumer,loadbalance,bizkeeper-consumer
 
   uploads:
     directory: tmp_for_upload_gateway

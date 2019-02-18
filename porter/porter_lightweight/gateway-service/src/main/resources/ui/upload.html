@@ -13,13 +13,26 @@
         <h2>上传</h2>
     </div>
     <div class="section">
-        <form method="POST" enctype="multipart/form-data"
-            action="/api/file-service/upload">
+        <form id="upload_form" method="POST">
             <p>
                 File Name: <input type="file" name="fileName" />
             </p>
             <p>
                 <input type="button" value="上传" onclick="uploadAction()">
+            </p>
+        </form>
+    </div>
+
+    <div class="header">
+        <h2>删除文件</h2>
+    </div>
+    <div class="section">
+        <form id="delete_form" method="DELETE">
+            <p>
+                File ID: <input id="fileID" type="text"/>
+            </p>
+            <p>
+                <input type="button" value="删除" onclick="deleteAction()">
             </p>
         </form>
     </div>

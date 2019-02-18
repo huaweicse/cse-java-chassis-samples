@@ -1,23 +1,44 @@
 function uploadAction() {
-     var username = document.getElementById("username").value;
-     var password = document.getElementById("paasword").value;
-     var formData = {};
-     formData.userName = username;
-     formData.password = password;
+     var formData = new FormData(document.getElementById("upload_form"));
 
      $.ajax({
         type: 'POST',
-        url: "/api/user-service/v1/user/login",
+        url: "/api/file-service/upload",
         data: formData,
+        processData:false,
+        contentType:false,
         success: function (data) {
             console.log(data);
-            setCookie("session-id", data.sessiondId, 1);
-            window.location = "/ui/upload.html";
+            var error = document.getElementById("error");
+            error.textContent="上传成功";
+            error.hidden=false;
         },
         error: function(data) {
             console.log(data);
             var error = document.getElementById("error");
-            error.textContent="登录失败";
+            error.textContent="上传失败";
+            error.hidden=false;
+        },
+        async: true
+    });
+}
+
+function deleteAction() {
+     var fileID = document.getElementById("fileID").value;
+     $.ajax({
+        type: 'DELETE',
+        url: "/api/file-service/delete?" + $.param({ id: fileID }),
+        data: {},
+        success: function (data) {
+            console.log(data);
+            var error = document.getElementById("error");
+            error.textContent="删除成功";
+            error.hidden=false;
+        },
+        error: function(data) {
+            console.log(data);
+            var error = document.getElementById("error");
+            error.textContent="删除失败";
             error.hidden=false;
         },
         async: true
