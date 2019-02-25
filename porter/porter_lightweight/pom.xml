@@ -86,11 +86,6 @@
           <configuration>
             <outputDirectory>${project.build.directory}</outputDirectory>
             <archive>
-              <manifest>
-                <addClasspath>true</addClasspath>
-                <classpathPrefix>./lib/</classpathPrefix>
-                <mainClass>${main.class}</mainClass>
-              </manifest>
               <manifestEntries>
                 <Class-Path>.</Class-Path>
               </manifestEntries>
@@ -127,6 +122,21 @@
               </goals>
               <configuration>
                 <outputDirectory>${project.build.directory}/lib</outputDirectory>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>2.1.2.RELEASE</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+              <configuration>
+                <mainClass>${main.class}</mainClass>
               </configuration>
             </execution>
           </executions>

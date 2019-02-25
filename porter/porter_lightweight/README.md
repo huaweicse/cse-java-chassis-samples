@@ -15,7 +15,7 @@ mvn clean install
 
 * 设置环境变量
 ```
-export JAVA_OPT="-Dcse.credentials.accessKey=YourAccessKey -Dcse.credentials.secretKey=YourSecretKey"
+export JAVA_OPT="-Dcse.credentials.accessKey=YourAccessKey -Dcse.credentials.secretKey=YourSecretKey -Dfile.encoding=UTF-8"
 ```
 
 * 启动user-service:
