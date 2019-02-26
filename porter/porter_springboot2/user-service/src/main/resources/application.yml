@@ -1,0 +1,15 @@
+# override common configurations in common module
+cse-config-order: 100
+
+service_description:
+  name: user-service
+
+cse:
+  rest:
+    address: 0.0.0.0:9093
+
+# spring jpa datasource
+spring.jpa.hibernate.ddl-auto: none
+spring.datasource.url: jdbc:mysql://localhost:3306/db_example
+spring.datasource.username: springuser
+spring.datasource.password: ThePassword    

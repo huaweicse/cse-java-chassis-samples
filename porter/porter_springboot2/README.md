@@ -15,13 +15,13 @@ mvn clean install
 
 * 设置环境变量
 ```
-export JAVA_OPT="-Dcse.credentials.accessKey=YourAccessKey -Dcse.credentials.secretKey=YourSecretKey"
+export JAVA_OPT="-Dcse.credentials.accessKey=YourAccessKey -Dcse.credentials.secretKey=YourSecretKey -Dfile.encoding=UTF-8"
 ```
 
 * 启动user-service:
 
 ```
-java $JAVA_OPT -Ddb.url="jdbc:mysql://localhost/porter_user_db?useSSL=false" -Ddb.username=root -Ddb.password=root -jar porter-user-service-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &
+java $JAVA_OPT -Dspring.datasource.url="jdbc:mysql://localhost/porter_user_db?useSSL=false" -Dspring.datasource.username=root -Dspring.datasource.password=root -jar porter-user-service-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &
 ```
 
 * 启动file-service:

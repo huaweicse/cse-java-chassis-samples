@@ -20,9 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.huawei.cse.porter.user.api.SessionInfo;
 import com.huawei.cse.porter.user.api.UserServiceEndpoint;
-import com.huawei.cse.porter.user.dao.SessionMapper;
-import com.huawei.cse.porter.user.dao.UserInfo;
-import com.huawei.cse.porter.user.dao.UserMapper;
+import com.huawei.cse.porter.user.dao.SessionEntity;
+import com.huawei.cse.porter.user.dao.SessionRepository;
+import com.huawei.cse.porter.user.dao.UserEntity;
+import com.huawei.cse.porter.user.dao.UserRepository;
 import com.netflix.config.DynamicPropertyFactory;
 
 @RestSchema(schemaId = "user")
@@ -31,23 +32,23 @@ public class UserServiceEndpointImpl implements UserServiceEndpoint {
   private static Logger LOGGER = LoggerFactory.getLogger(UserServiceEndpointImpl.class);
 
   @Autowired
-  private UserMapper userMapper;
+  private UserRepository userRepository;
 
   @Autowired
-  private SessionMapper sessionMapper;
+  private SessionRepository sessionRepository;
 
   @PostMapping(path = "/v1/user/login", produces = MediaType.APPLICATION_JSON_VALUE)
   public SessionInfo login(@RequestParam(name = "userName") String userName,
       @RequestParam(name = "password") String password) {
-    UserInfo userInfo = userMapper.getUserInfo(userName);
+    UserEntity userInfo = userRepository.getUserInfo(userName);
     if (userInfo != null) {
       if (validatePassword(password, userInfo.getPassword())) {
-        SessionInfo sessionInfo = new SessionInfo();
-        sessionInfo.setSessiondId(UUID.randomUUID().toString());
-        sessionInfo.setUserName(userInfo.getUserName());
-        sessionInfo.setRoleName(userInfo.getRoleName());
-        sessionMapper.createSession(sessionInfo);
-        return sessionInfo;
+        SessionEntity sessionEntity = new SessionEntity();
+        sessionEntity.setSessiondId(UUID.randomUUID().toString());
+        sessionEntity.setUserName(userInfo.getUserName());
+        sessionEntity.setRoleName(userInfo.getRoleName());
+        sessionRepository.save(sessionEntity);
+        return SessionEntity.toSessionInfo(sessionEntity);
       }
     }
     return null;
@@ -58,16 +59,17 @@ public class UserServiceEndpointImpl implements UserServiceEndpoint {
     if (sessionId == null) {
       throw new InvocationException(405, "", "invalid session.");
     }
-    SessionInfo sessionInfo = sessionMapper.getSessioinInfo(sessionId);
-    if (sessionInfo != null) {
-      if (System.currentTimeMillis() - sessionInfo.getActiveTime().getTime() > 10 * 60 * 1000) {
+    SessionEntity sessionEntity = sessionRepository.getSessioinInfo(sessionId);
+    if (sessionEntity != null) {
+      if (System.currentTimeMillis() - sessionEntity.getActiveTime().getTime() > 10 * 60 * 1000) {
         LOGGER.info("user session expired.");
         return null;
       } else {
-        sessionMapper.updateSessionInfo(sessionInfo.getSessiondId());
+        sessionRepository.save(sessionEntity);
+        return SessionEntity.toSessionInfo(sessionEntity);
       }
     }
-    return sessionInfo;
+    return null;
   }
 
   private boolean validatePassword(String plain, String encrypt) {
@@ -90,7 +92,7 @@ public class UserServiceEndpointImpl implements UserServiceEndpoint {
   @GetMapping(path = "/v1/user/ping", produces = MediaType.APPLICATION_JSON_VALUE)
   public String ping(@RequestParam(name = "message") String message) {
     long delay = DynamicPropertyFactory.getInstance().getLongProperty("user.ping.delay", 0).get();
-    if(delay > 0 ) {
+    if (delay > 0) {
       try {
         TimeUnit.SECONDS.sleep(delay);
       } catch (InterruptedException e) {
