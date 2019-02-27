@@ -1,5 +1,7 @@
 package com.huawei.cse.porter.gateway;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.servicecomb.core.Handler;
 import org.apache.servicecomb.core.Invocation;
 import org.apache.servicecomb.foundation.common.utils.JsonUtils;
@@ -11,11 +13,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import com.huawei.cse.porter.user.api.SessionInfo;
 
 
 public class AuthHandler implements Handler {
   private CseAsyncRestTemplate restTemplate = new CseAsyncRestTemplate();
+
+  //服务端会话过期是10分钟，客户端缓存1分钟会话。
+  private Cache<String, String> sessionCache = CacheBuilder.newBuilder()
+      .expireAfterAccess(30, TimeUnit.SECONDS)
+      .build();
 
   @Override
   public void handle(Invocation invocation, AsyncResponse asyncResponse) throws Exception {
@@ -29,6 +38,19 @@ public class AuthHandler implements Handler {
       String sessionId = invocation.getContext("session-id");
       if (sessionId == null) {
         throw new InvocationException(403, "", "session is not valid.");
+      }
+
+      String sessionInfo = sessionCache.getIfPresent(sessionId);
+      if (sessionInfo != null) {
+        try {
+          // 将会话信息传递给后面的微服务。后面的微服务可以从context获取到会话信息，从而可以进行鉴权等。 
+          invocation.addContext("session-id", sessionId);
+          invocation.addContext("session-info", sessionInfo);
+          invocation.next(asyncResponse);
+        } catch (Exception e) {
+          asyncResponse.complete(Response.failResp(new InvocationException(500, "", e.getMessage())));
+        }
+        return;
       }
 
       // 在网关执行的Hanlder逻辑，是reactive模式的，不能使用阻塞调用。
@@ -46,12 +68,15 @@ public class AuthHandler implements Handler {
               SessionInfo sessionInfo = result.getBody();
               if (sessionInfo == null) {
                 asyncResponse.complete(Response.failResp(new InvocationException(403, "", "session is not valid.")));
+                return;
               }
               try {
                 // 将会话信息传递给后面的微服务。后面的微服务可以从context获取到会话信息，从而可以进行鉴权等。 
                 invocation.addContext("session-id", sessionId);
-                invocation.addContext("session-info", JsonUtils.writeValueAsString(sessionInfo));
+                String sessionInfoStr = JsonUtils.writeValueAsString(sessionInfo);
+                invocation.addContext("session-info", sessionInfoStr);
                 invocation.next(asyncResponse);
+                sessionCache.put(sessionId, sessionInfoStr);
               } catch (Exception e) {
                 asyncResponse.complete(Response.failResp(new InvocationException(500, "", e.getMessage())));
               }
