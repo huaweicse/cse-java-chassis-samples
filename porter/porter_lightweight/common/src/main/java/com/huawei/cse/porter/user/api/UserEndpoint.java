@@ -15,7 +15,7 @@ import io.swagger.annotations.SwaggerDefinition;
 @RestSchema(schemaId = "user")
 @RequestMapping(path = "/")
 @SwaggerDefinition(info = @Info(description = "用户认证、会话等管理", title = "用户管理接口", version = "v1"), basePath = "/")
-public class UserEndpoint implements UserService {
+public class UserEndpoint {
   @Autowired
   private UserService userService;
 
