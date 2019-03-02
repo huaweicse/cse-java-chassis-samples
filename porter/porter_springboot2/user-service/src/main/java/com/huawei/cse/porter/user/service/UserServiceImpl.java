@@ -1,4 +1,4 @@
-package com.huawei.cse.porter.user.endpoint;
+package com.huawei.cse.porter.user.service;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -7,29 +7,23 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.stereotype.Service;
 
 import com.huawei.cse.porter.user.api.SessionInfo;
-import com.huawei.cse.porter.user.api.UserServiceEndpoint;
+import com.huawei.cse.porter.user.api.UserService;
 import com.huawei.cse.porter.user.dao.SessionEntity;
 import com.huawei.cse.porter.user.dao.SessionRepository;
 import com.huawei.cse.porter.user.dao.UserEntity;
 import com.huawei.cse.porter.user.dao.UserRepository;
 import com.netflix.config.DynamicPropertyFactory;
 
-@RestSchema(schemaId = "user")
-@RequestMapping(path = "/")
-public class UserServiceEndpointImpl implements UserServiceEndpoint {
-  private static Logger LOGGER = LoggerFactory.getLogger(UserServiceEndpointImpl.class);
+@Service
+public class UserServiceImpl implements UserService {
+  private static Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
   @Autowired
   private UserRepository userRepository;
@@ -37,9 +31,8 @@ public class UserServiceEndpointImpl implements UserServiceEndpoint {
   @Autowired
   private SessionRepository sessionRepository;
 
-  @PostMapping(path = "/v1/user/login", produces = MediaType.APPLICATION_JSON_VALUE)
-  public SessionInfo login(@RequestParam(name = "userName") String userName,
-      @RequestParam(name = "password") String password) {
+  public SessionInfo login(String userName,
+      String password) {
     UserEntity userInfo = userRepository.getUserInfo(userName);
     if (userInfo != null) {
       if (validatePassword(password, userInfo.getPassword())) {
@@ -54,8 +47,7 @@ public class UserServiceEndpointImpl implements UserServiceEndpoint {
     return null;
   }
 
-  @GetMapping(path = "/v1/user/session", produces = MediaType.APPLICATION_JSON_VALUE)
-  public SessionInfo getSession(@RequestParam(name = "sessionId") String sessionId) {
+  public SessionInfo getSession(String sessionId) {
     if (sessionId == null) {
       throw new InvocationException(405, "", "invalid session.");
     }
@@ -89,8 +81,7 @@ public class UserServiceEndpointImpl implements UserServiceEndpoint {
   }
 
 
-  @GetMapping(path = "/v1/user/ping", produces = MediaType.APPLICATION_JSON_VALUE)
-  public String ping(@RequestParam(name = "message") String message) {
+  public String ping(String message) {
     long delay = DynamicPropertyFactory.getInstance().getLongProperty("user.ping.delay", 0).get();
     if (delay > 0) {
       try {
