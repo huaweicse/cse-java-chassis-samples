@@ -11,7 +11,7 @@
 		http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-    <context:component-scan base-package="com.huawei.cse.porter" />
+    <context:component-scan base-package="com.huawei.cse.porter.user" />
 
     <bean id="dataSource"
         class="org.apache.commons.dbcp2.BasicDataSource"

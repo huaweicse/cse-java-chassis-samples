@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
  * 由于测试使用，这里没有对文件大小、类型等做检查。使用者需要注意做好检查，包含系统安全。
  */
 @Component
-public class LocalFileService implements FileService {
+public class LocalFileStoreService implements FileStoreService {
     // maxmum BUFFER_SIZE * BUFFER_NUM
     private static final int BUFFER_SIZE = 10240;
 

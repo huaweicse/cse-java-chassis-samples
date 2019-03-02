@@ -1,4 +1,4 @@
-package com.huawei.cse.porter.user.dao;
+package com.huawei.cse.porter.file.service;
 
 public class SessionInfo {
     private int id;
