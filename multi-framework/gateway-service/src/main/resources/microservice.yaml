@@ -1,0 +1,24 @@
+# override common configurations in common module
+cse-config-order: 100
+
+service_description:
+  name: gateway
+
+cse:
+  service:
+    registry:
+      address: http://127.0.0.1:30100
+      instance:
+        watch: false
+  rest:
+    address: 0.0.0.0:8888?sslEnabled=false
+
+  accesslog:
+    enabled: true
+  metrics:
+    window_time: 30000
+    publisher.defaultLog.enabled: true
+
+  http.dispatcher:
+    edge.default.enabled: false
+    rest.enabled: false

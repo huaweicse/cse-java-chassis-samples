@@ -1,0 +1,3 @@
+com.huawei.cse.GenericHttpDispatcher
+com.huawei.cse.DefaultCseDispatcher
+com.huawei.cse.GenericHttpWithDiscoveryDispatcher
