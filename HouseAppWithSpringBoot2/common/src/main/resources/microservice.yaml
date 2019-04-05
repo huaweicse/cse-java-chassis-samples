@@ -2,9 +2,14 @@ cse-config-order: 10
 
 ## Spring Boot configurations
 # alpha
+# It doesn't work with pack 0.4.0
 alpha:
   cluster:
     address: 127.0.0.1:7080
+
+
+omega:
+  enabled: true
 ## CSE configurations
 
 APPLICATION_ID: houseapp
@@ -36,13 +41,14 @@ cse:
       thread-count: 10
 
   credentials:
-    accessKey: xx
-    secretKey: xx
+    # Set your AK SK
+    accessKey: X
+    secretKey: X
     akskCustomCipher: default
 
   handler:
     chain:
       Provider:
-        default: qps-flowcontrol-provider,bizkeeper-provider,saga-provider
+        default: qps-flowcontrol-provider,bizkeeper-provider,pack-provider
       Consumer:
-        default: qps-flowcontrol-consumer,loadbalance,bizkeeper-consumer,saga-consumer
+        default: qps-flowcontrol-consumer,loadbalance,bizkeeper-consumer,pack-consumer
