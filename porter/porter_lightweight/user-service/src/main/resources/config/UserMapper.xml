@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.cse.porter.user.dao.UserMapper">
+    <resultMap id="userInfo" type="com.huawei.cse.porter.user.dao.UserInfo">
+        <result column="ID" jdbcType="INTEGER" property="id" />
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+        <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+        <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
+    </resultMap>
+
+    <sql id="all_column">
+        ID, USER_NAME, PASSWORD, ROLE_NAME
+    </sql>
+
+    <insert id="createUser" parameterType="com.huawei.cse.porter.user.dao.UserInfo">
+        insert into T_USER (
+        <include refid="all_column" />
+        )
+        values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},
+        #{password,jdbcType=VARCHAR},#{roleName,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="getUserInfo" parameterType="java.lang.String"
+        resultMap="userInfo">
+        select
+        <include refid="all_column" />
+        from T_USER where USER_NAME = #{0,jdbcType=VARCHAR}
+    </select>
+</mapper>

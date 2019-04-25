@@ -1,0 +1,27 @@
+cse-config-order: 100
+
+# omega need this name
+spring:
+  application:
+    name: edge-service
+
+## CSE configurations
+cse:
+  rest:
+    address: 0.0.0.0:18080
+
+  http:
+    dispatcher:
+      edge:
+        api:
+          enabled: true
+        default:
+          prefix: api
+          withVersion: false
+          prefixSegmentCount: 2
+  handler:
+    chain:
+      Provider:
+        default: tracing-provider
+      Consumer:
+        default: tracing-consumer,loadbalance

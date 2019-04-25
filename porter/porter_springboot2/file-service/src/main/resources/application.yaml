@@ -1,0 +1,12 @@
+server:
+  port: 9091
+
+service_description:
+  name: file-service
+
+cse:
+  rest:
+    address: 0.0.0.0:9091
+
+  uploads:
+    directory: tmp_for_upload_file

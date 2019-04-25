@@ -1,0 +1,19 @@
+cse-config-order: 100
+
+## Spring Boot configurations
+spring:
+  application:
+    name: product-service
+  main:
+    allow-bean-definition-overriding: true
+server:
+  port: 8089
+
+## CSE configurations
+cse:
+  rest:
+    address: 0.0.0.0:8089
+# alpha
+alpha:
+  cluster:
+    address: 127.0.0.1:7080

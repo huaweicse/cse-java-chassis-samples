@@ -1,0 +1,48 @@
+cse-config-order: 10
+
+## CSE configurations
+
+APPLICATION_ID: houseapp
+service_description:
+  name: ${spring.application.name}
+  version: 0.0.1
+
+cse:
+  test:
+    house:
+      yamlValue: xyz
+      yamlValueOverride: abc
+  service:
+    registry:
+      address: https://cse.cn-north-1.myhuaweicloud.com
+      instance:
+        watch: false
+  config:
+    client:
+      serverUri: https://cse.cn-north-1.myhuaweicloud.com
+      refreshMode: 1
+      refresh_interval: 5000
+  monitor:
+    client:
+      serverUri: https://cse.cn-north-1.myhuaweicloud.com
+
+  rest:
+    server:
+      thread-count: 10
+
+  credentials:
+    accessKey: xx
+    secretKey: xx
+    akskCustomCipher: default
+
+  handler:
+    chain:
+      Provider:
+        default: qps-flowcontrol-provider,bizkeeper-provider,pack-provider
+      Consumer:
+        default: qps-flowcontrol-consumer,loadbalance,bizkeeper-consumer,pack-consumer
+
+  monitor:
+    client:
+      enable: false
+      

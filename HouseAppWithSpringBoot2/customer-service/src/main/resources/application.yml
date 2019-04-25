@@ -1,0 +1,25 @@
+cse-config-order: 100
+
+## Spring Boot configurations
+# omega need this name
+spring:
+  application:
+    name: customer-service
+  main:
+    allow-bean-definition-overriding: true
+
+server:
+  port: 9093
+
+## CSE configurations
+cse:
+  rest:
+    address: 0.0.0.0:9093
+  test:
+    house:
+      yamlValueOverride: xyz
+      
+# alpha
+alpha:
+  cluster:
+    address: 127.0.0.1:7080

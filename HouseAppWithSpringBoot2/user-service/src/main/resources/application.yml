@@ -1,0 +1,18 @@
+cse-config-order: 100
+
+## Spring Boot configurations
+spring:
+  application:
+    name: user-service
+  main:
+    allow-bean-definition-overriding: true
+server:
+  port: 8092
+## CSE configurations
+cse:
+  rest:
+    address: 0.0.0.0:8092
+# alpha
+alpha:
+  cluster:
+    address: 127.0.0.1:7080

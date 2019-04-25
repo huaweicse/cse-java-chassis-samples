@@ -1,0 +1,19 @@
+server:
+  port: 9092
+
+service_description:
+  name: auth
+
+cse:
+  service:
+    registry:
+      address: http://127.0.0.1:30100
+      instance:
+        watch: false
+
+  rest:
+    address: 0.0.0.0:9092
+
+## using spring mvc rest server to handle requests
+server.servlet.path: /
+servicecomb.rest.servlet.urlPattern: /cse/*

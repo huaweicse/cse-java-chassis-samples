@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.cse.houseapp.account.dao.AccountMapper">
+    <resultMap id="accountInfo"
+        type="com.huawei.cse.houseapp.account.dao.AccountInfo">
+        <result column="ID" jdbcType="BIGINT" property="userId" />
+        <result column="RESERVED" jdbcType="BOOLEAN" property="reserved" />
+        <result column="TOTAL_BALANCE" jdbcType="DECIMAL"
+            property="totalBalance" />
+    </resultMap>
+
+    <sql id="all_column">
+        ID, RESERVED, TOTAL_BALANCE
+    </sql>
+
+    <insert id="createAccountInfo">
+        insert into T_ACCOUNT (
+        <include refid="all_column" />
+        )
+        values (#{userId,jdbcType=BIGINT},
+       #{reserved,jdbcType=BOOLEAN},#{totalBalance,jdbcType=DECIMAL})
+    </insert>
+
+    <select id="getAccountInfo" parameterType="java.lang.Long"
+        resultMap="accountInfo">
+        select
+        <include refid="all_column" />
+        from T_ACCOUNT where ID = #{1,jdbcType=BIGINT}
+    </select>
+
+    <update id="updateAccountInfo" parameterType="com.huawei.cse.houseapp.account.dao.AccountInfo">
+        update
+        T_ACCOUNT
+        set
+        RESERVED = #{reserved,jdbcType=BOOLEAN},
+        TOTAL_BALANCE =
+        #{totalBalance,jdbcType=DECIMAL}
+        where
+        ID =
+        #{userId,jdbcType=BIGINT}
+    </update>
+
+    <delete id="clear">
+        delete from T_ACCOUNT
+    </delete>
+
+    <select id="queryReduced" resultType="java.lang.Double">
+        select sum(TOTAL_BALANCE)
+        from T_ACCOUNT
+    </select>
+</mapper>

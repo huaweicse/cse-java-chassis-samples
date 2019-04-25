@@ -1,0 +1,19 @@
+server:
+  port: 9090
+
+service_description:
+  name: springboot2-oauth2-resource-server
+
+cse:
+  service:
+    registry:
+      address: http://127.0.0.1:30100
+      instance:
+        watch: false
+
+  rest:
+    address: 0.0.0.0:9090
+
+## using spring mvc rest server to handle requests
+server.servlet.path: /
+servicecomb.rest.servlet.urlPattern: /cse/*

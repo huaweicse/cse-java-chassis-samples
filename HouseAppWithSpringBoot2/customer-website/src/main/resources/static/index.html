@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>demo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="demo" />
+        <script type="application/x-javascript">
+            addEventListener("load", function() {
+                setTimeout(hideURLbar, 0);
+            }, false);
+
+            function hideURLbar() {
+                window.scrollTo(0, 1);
+            }
+        </script>
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="toastr/toastr.css" rel="stylesheet" />
+        <link href="css/font-awesome.css" rel="stylesheet" type="text/css" media="all" />
+        <script src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/move-top.js"></script>
+        <script type="text/javascript" src="js/easing.js"></script>
+        <script src="toastr/toastr.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $(".scroll").click(function(event) {
+                    event.preventDefault();
+                    $('html,body').animate({
+                        scrollTop: $(this.hash).offset().top
+                    }, 1000);
+                });
+            });
+        </script>
+
+        <link href="dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
+        <link href="css/highlight.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
+        <script src="dist/js/bootstrap-switch.js"></script>
+        <script src="js/highlight.js"></script>
+        <script src="js/main.js"></script>
+        <!-- start-smoth-scrolling -->
+    </head>
+
+    <body>
+        <!-- script-for sticky-nav -->
+        <!-- <script>
+            $(document).ready(function() {
+                var navoffeset = $(".agileits_header").offset().top;
+                $(window).scroll(function() {
+                    var scrollpos = $(window).scrollTop();
+                    if(scrollpos >= navoffeset) {
+                        $(".agileits_header").addClass("fixed");
+                    } else {
+                        $(".agileits_header").removeClass("fixed");
+                    }
+                });
+
+            });
+        </script> -->
+
+        <script>
+            $(".w3_login").hide();
+            var userinfo = {
+                "id": -1,
+                "name": "apm",
+                "password": "123456"
+            };
+
+            function onClkLogin() {
+                if(userinfo.id > -1) {
+                    return;
+                }
+                $('#myModal').modal();
+            }
+
+            function onClkLogout() {
+                window.localStorage.removeItem("demologin");
+                $(".product_list_header_wwd_logout").hide();
+                $(".product_list_header_wwd_login").show();
+                $("#loginuser").hide();
+                userinfo.id = -1;
+            }
+        </script>
+
+        <script>
+
+            function resetTestData() {
+                  var formData = {};
+                  formData.username = "test";
+                  formData.password = "test";
+                  $.ajax({
+                    type: 'POST',
+                    url: "/api/customer-service/login",
+                    data: formData,
+                    success: function a(data) {
+                        window.alert("成功");
+                    },
+                    error:  function a(data) {
+                        window.alert("error:" + data.status);
+                    },
+                    contentType: "application/x-www-form-urlencoded",
+                    async: false
+                })
+            }
+            function startTest2PC() {
+                  $.ajax({
+                    type: 'GET',
+                    url: "/api/loadtestclient/start?threadCount=15&userBegin=50&userEnd=20&transactioType=2",
+                    success: function a(data) {
+                        window.alert("成功");
+                    },
+                    error:  function a(data) {
+                        window.alert("error:" + data.status);
+                    },
+                    async: false
+                })
+            }
+            function startTestNoTransaction() {
+                  $.ajax({
+                    type: 'GET',
+                    url: "/api/loadtestclient/start?threadCount=15&userBegin=50&userEnd=20&transactioType=0",
+                    success: function a(data) {
+                        window.alert("成功");
+                    },
+                    error:  function a(data) {
+                        window.alert("error:" + data.status);
+                    },
+                    async: false
+                })
+            }
+            
+            function startTest() {
+                  $.ajax({
+                    type: 'GET',
+                    url: "/api/loadtestclient/start?threadCount=15&userBegin=50&userEnd=20&transactioType=1",
+                    success: function a(data) {
+                        window.alert("成功");
+                    },
+                    error:  function a(data) {
+                        window.alert("error:" + data.status);
+                    },
+                    async: false
+                })
+            }
+            function stopTest() {
+                  $.ajax({
+                    type: 'GET',
+                    url: "/api/loadtestclient/stop",
+                    success: function a(data) {
+                        window.alert("成功");
+                    },
+                    error:  function a(data) {
+                        window.alert("error:" + data.status);
+                    },
+                    async: false
+                })
+            }
+        </script>
+        <!-- //script-for sticky-nav -->
+        <div class="logo_products">
+            <div class="container">
+                <div class="w3ls_logo_products_left">
+                    <h1><a ><span>HOUSE</span> Store</a></h1>
+                </div>
+                <!--<div class="w3ls_logo_products_left1">
+                    <ul class="phone_email">
+                        <li><i class="fa fa-phone" aria-hidden="true"></i>(+027) 87260059</li>
+                        <li><i class="fa fa-envelope-o" aria-hidden="true"></i>
+                            <a>wdwang@163.com</a>
+                        </li>
+                    </ul>
+                </div>-->
+
+            <div id="loginuser" style="color:cornflowerblue;float:left;font-size: 20px;margin-top: 35px;margin-left: 30px;cursor: pointer;"
+                onclick="onClkLogin()">登录</div>
+
+            <div style="float:right">
+                <div class="product_list_header_wwd" style="float: left;margin-top: 32px;margin-left:10px ;padding-top:7px;position: relative;">
+                    <span>用户名：</span>
+                    <a class="userState" href="javascript:void(0)" style="margin-right: 10px;">登录</a>
+                    <div id="userTip">
+                        <p>
+                            <label>用户余额：</label>
+                            <span class="userNum"></span>
+                        </p>
+                    </div>
+                    <!--</fieldset>-->
+                </div>
+                <div class="product_list_header_wwd" style="float: left;margin-top: 32px;margin-left:10px ;padding-top:7px;">
+                    <a class="userOutState" href="javascript:void(0)" style="margin-right: 10px;">注销</a>
+                </div>
+                <div class="product_list_header_wwd" style="float: left;margin-top: 32px;margin-left:10px ;">
+                    <input type="button" onclick="resetTestData()" value="重置测试数据" class="button" />
+                </div>
+                
+                <div class="product_list_header_wwd" style="float: left;margin-top: 32px;margin-left:10px ;">
+                        <form action="/api/loadtestclient/start?threadCount=10&userBegin=1&userEnd=10">
+                            <input type="button" onclick="startTest()" value="开启自动测试（弱一致）" class="button" />
+                        </form>
+                </div>
+
+                <div class="product_list_header_wwd" style="float: left;margin-top: 32px;margin-left:10px ;">
+                        <form action="/api/loadtestclient/start?threadCount=10&userBegin=1&userEnd=10">
+                            <input type="button" onclick="startTest2PC()" value="开启自动测试（强一致）" class="button" />
+                        </form>
+                </div>
+
+                <div class="product_list_header_wwd" style="float: left;margin-top: 32px;margin-left:10px ;">
+                        <form action="/api/loadtestclient/start?threadCount=10&userBegin=1&userEnd=10">
+                            <input type="button" onclick="startTestNoTransaction()" value="开启自动测试（无事务）" class="button" />
+                        </form>
+                </div>
+
+                <div class="product_list_header_wwd" style="float: left;margin-top: 32px;margin-left:10px ;">
+                        <form action="/api/loadtestclient/stop">
+                            <input type="button" onclick="stopTest()" value="停止自动测试" class="button" />
+                        </form>
+                </div>
+                
+                <div class="product_list_header_wwd" style="float: left;margin-top: 32px;margin-left:10px ;">
+                    <form action="/ui/customer-website/list.html">
+                        <input type="submit" name="submit" value="抢购详情" class="button" />
+                    </form>
+                </div>
+                <div class="product_list_header_wwd" style="float: left;margin-top: 32px;margin-left:10px ;">
+                    <form action="/ui/customer-website/index.html">
+                        <input type="submit" name="submit" value="刷新" class="button" />
+                    </form>
+                </div>
+            </div>
+
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <!-- //header -->
+    <!-- banner -->
+    <div class="w3l_banner_nav_right" style="display: none;">
+        <section class="slider">
+            <div class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <div class="w3l_banner_nav_right_banner">
+                            <h3>Make your
+                                <span>food</span> with Spicy.</h3>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="w3l_banner_nav_right_banner1">
+                            <h3>Make your
+                                <span>food</span> with Spicy.</h3>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="w3l_banner_nav_right_banner2">
+                            <h3>upto
+                                <i>50%</i> off.</h3>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <!-- flexSlider -->
+        <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" property="" />
+        <script defer src="js/jquery.flexslider.js"></script>
+        <script type="text/javascript">
+            $(window).load(function () {
+                $('.flexslider').flexslider({
+                    animation: "slide",
+                    start: function (slider) {
+                        $('body').removeClass('loading');
+                    }
+                });
+            });
+        </script>
+        <!-- //flexSlider -->
+    </div>
+    </div>
+    <!-- banner -->
+    <!-- top-brands -->
+    <div class="top-brands">
+        <div class="container">
+            <h3>热销楼盘</h3>
+            <div class="agile_top_brands_grids" id="phoneList">
+
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function() {
+
+                var userStr = window.localStorage.getItem("demologin");
+                if(userStr !== null) {
+                    var userArr = userStr.split(",");
+                    userinfo.id = parseInt(userArr[0]);
+                    userinfo.name = userArr[1];
+                    userinfo.password = userArr[2];
+                    $("#loginuser").text(userinfo.name);
+                    $("#loginuser").css({
+                        "color": "seagreen",
+                        "cursor": "auto"
+                    });
+
+                    $(".product_list_header_wwd_logout").show();
+                    $(".product_list_header_wwd_login").hide();
+                } else {
+                    $(".product_list_header_wwd_logout").hide();
+                    $(".product_list_header_wwd_login").show();
+                    $("#loginuser").hide();
+                }
+                
+                $(".dropdown").hover(
+                    function() {
+                        $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                        $(this).toggleClass('open');
+                    },
+                    function() {
+                        $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                        $(this).toggleClass('open');
+                    }
+                );
+            });
+        </script>
+        <script src="js/minicart.js"></script>
+        <script>
+            var product2image = {
+                '0': "huxingtu1.jpg",
+                "1": "huxingtu2.jpg",
+                "2": "huxingtu3.jpg",
+                "3": "huxingtu4.jpg"
+            };
+
+            var disabledBtn = {
+                'background-color': 'gray'
+            }
+
+            var prodectName2Id = {};
+
+            function tryToBuy(id, price) {
+                  var formData = {};
+                  formData.productId = id;
+                  formData.price = price;
+                  $.ajax({
+                    type: 'POST',
+                    url: "/api/customer-service/buyWithTransactionTCC",
+                    data: formData,
+                    success: function a(data) {
+                        window.alert("抢购成功");
+                    window.location.reload();                                                       
+                    },
+                    error:  function a(data) {
+                        window.alert(data.responseText);
+                    },
+                    contentType: "application/x-www-form-urlencoded",
+                    async: false
+                })
+            }
+
+            function constructProductDom(houseList) {
+                for(var i = 0; i < houseList.length; i++) {
+                    var data = houseList[i];
+                    var id = data.id;
+                    var price = data.price;
+                    var houseName = data.productName;
+                    var image = product2image[id % 4];
+                    var state = data.reserved ? 1 : (data.sold ? 2 : 0);
+                    var btnClass = 'buyBtn' + data.id;
+                    prodectName2Id[houseName] = data.id;
+                    var strOffer = '<div class="agile_top_brand_left_grid_pos">' +
+                        '<img src="images/offer.png" alt=" " class="img-responsive" />' +
+                        '</div>';
+                    if(data.isOffer === 0) {
+                        strOffer = "";
+                    }
+                    var divId = "product_" + id;
+                    var contentStr =
+                    '<div style="margin-bottom:30px" id="' + divId + '"class="col-md-3 top_brand_left">' +
+                        '<div class="hover14 column">' +
+                        '<div class="agile_top_brand_left_grid">' +
+                        strOffer +
+                        '<div class="agile_top_brand_left_grid1">' +
+                        '<figure>' +
+                        '<div class="snipcart-item block">' +
+                        '<div class="snipcart-thumb">' +
+                        '<a ><img title=" " alt=" " src="images/' + image + '" height="121" width="120"/></a>' +
+                        '<p>' + houseName + '</p>' +
+                        '<h4>价格：' + price + ' 元</h4>' +
+                        '</div>' +
+                        '<div class="snipcart-details top_brand_home_details">' +
+                        '<form action="/api/customer-service/buy" method="post">' +
+                        '<fieldset>' +
+                        '<input type="hidden" name="productId" value="' + id +'" />' +
+                        '<input type="hidden" name="add" value="1" />' +
+                        '<input type="hidden" name="business" value=" " />' +
+                        '<input type="hidden" name="item_name" value="' + houseName + '" />' +
+                        '<input type="hidden" name="price" value="' + price + '" />' +
+                        '<input type="hidden" name="currency_code" value="CNY" />' +
+                        '<input type="button" onclick="tryToBuy(' + id + ', '+ price + ')" value="抢购" class="button ' + btnClass + '"/>' +
+                        '</fieldset>' +
+                        '</form>' +
+                        '</div>' +
+                        '</div>' +
+                        '</figure>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>';
+
+                    $("#phoneList").append(contentStr);
+                    if (state == 1) {
+                        $('.' + btnClass).attr('disabled', true).addClass('active').val('已被锁定');
+                    } else if (state == 2) {
+                        $('.' + btnClass).attr('disabled', true).addClass('active').val('已售');
+                    } 
+                }
+            }
+
+            function sortData (data) {
+                if (data.length <= 1) {
+                    return data;
+                }
+                var index = Math.floor(data.length / 2);
+                var porId = data.splice(index, 1)[0];
+                var left = [];
+                var right = [];
+                for(var i = 0; i < data.length; i++) { 
+                    porId.id > data[i].id ? left.push(data[i]) : right.push(data[i]);
+                };
+                return sortData(left).concat(porId).concat(sortData(right));
+            }
+            $(document).ready(function() {
+            var phoneList = [];
+            var userData = JSON.parse(window.localStorage.getItem('user'));
+            var loginTag = document.getElementsByClassName('userState')[0];
+            if (userData !== null) {
+                $('.userState').text(userData.userName);
+                loginTag.onclick = null;
+                loginTag.onmousemove = function () {
+                    $('#userTip').show();
+                };
+                loginTag.onmouseout = function () {
+                    $('#userTip').hide();
+                };
+            } else {
+                loginTag.onclick = function () {
+                    window.localStorage.clear();
+                    window.location.href = './login.html';
+                };
+                loginTag.onmousemove = null;
+                loginTag.onmouseout = null;
+                window.location.href = './login.html';
+            };
+
+            $('.userOutState').click(function () {
+                $('#userTip').hide();                
+                loginTag.onmousemove = null;
+                loginTag.onmouseout = null;
+                window.localStorage.clear();
+                $('.userState').text('登录');
+                $('.userState').click(function () {
+                    window.location.href = './login.html';
+                });
+                $("#phoneList").html();
+                window.location.href = './login.html';
+            });
+
+        if (userData !== null) {
+            $.ajax({
+                type: 'GET',
+                url: "/api/user-service/getUserInfo?userName=" + userData.userName,
+                success: function a(data) {
+                    $('.userNum').text(data.totalBalance);
+                },
+                contentType: "application/json",
+                async: false
+            });
+        };
+            $.ajax({
+                type: 'GET',
+                url: "/api/customer-service/searchAllProducts",
+                success: function (data) {
+                    constructProductDom(data);
+                },
+                contentType: "application/json",
+                async: false
+            })
+
+                // Mini Cart
+                paypal.minicart.render();
+                paypal.minicart.cart.on('checkout', function(evt) {
+                    evt.preventDefault();
+                    buyAllSelect();
+                });
+
+            });
+
+            function onSearchByName() {
+                var searchText = $("#searchProduct").val();
+                if(searchText === "查找商品") {
+                    return;
+                }
+                $.get("/product/search?productName=" + searchText, function(data) {
+                    console.log(data);
+                    //                  $("#phoneList").empty();
+
+                    if(data !== null && data !== undefined && data.length > 0) {
+                        //                      constructProductDom(data);
+                        var idArr = [];
+                        for(var i = 0; i < data.length; i++) {
+                            var divId = "product_" + data[i].id;
+                            $("#" + divId).show();
+                            idArr.push(data[i].id);
+                        }
+
+                        var keys = Object.keys(prodectName2Id);
+                        for(var i = 0; i < keys.length; i++) {
+                            var key = keys[i];
+                            var productId = prodectName2Id[key];
+
+                            if(idArr.indexOf(productId) === -1) {
+                                var divId = "product_" + productId;
+                                $("#" + divId).hide();
+                            }
+                        }
+
+                    } else {
+                        var keys = Object.keys(prodectName2Id);
+                        for(var i = 0; i < keys.length; i++) {
+                            var key = keys[i];
+                            var productId = prodectName2Id[key];
+                            var divId = "product_" + productId;
+                            $("#" + divId).hide();
+                        }
+                    }
+
+                })
+
+            }
+
+            function buyAllSelect() {;
+                console.log(paypal.minicart.cart.items());
+                var idList = [];
+                var itemArray = paypal.minicart.cart.items();
+                for(var i = 0; i < itemArray.length; i++) {
+                    var id = prodectName2Id[itemArray[i]._data.item_name];
+                    idList.push(id);
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: "/product/buy/0",
+                    data: JSON.stringify({
+                        user: userinfo,
+                        productidList: idList
+                    }),
+                    success: function a(data) {
+                        console.log(data);
+                        paypal.minicart.cart.destroy();
+                        toastr.success('购买成功！');
+                    },
+                    error: function() {
+                        toastr.error("请求失败！");
+                    },
+                    contentType: "application/json",
+                    async: true
+                });
+            }
+
+            //          window.onbeforeunload = function(e) {
+            //              window.localStorage.removeItem("demologin");
+            //          };
+        </script>
+
+        <!--<div class="container">-->
+        <!-- Trigger the modal with a button -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="w3_login">
+                <div class="w3_login_module">
+                    <div class="module form-module">
+                        <div class="toggle" onclick="onClkHideLogin()"><i class="fa fa-times"></i>
+                        </div>
+                        <div class="form">
+                            <h2>登录</h2>
+                            <input id="username" type="text" name="Username" placeholder="Username" required=" ">
+                            <input id="paasword" type="password" name="Password" placeholder="Password" required=" ">
+                            <input type="submit" value="Login" onclick="onClkSubmit()">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--</div>-->
+
+        <script>
+            function onClkHideLogin() {
+                $('#myModal').modal('hide');
+            }
+        </script>
+
+        <!--<script>
+            $(document).ready(function() {
+                $('#switch-animate').on('switchChange.bootstrapSwitch', function(event, state) {
+                    console.log(this); // DOM element  
+                    console.log(event); // jQuery event  
+                    console.log(state); // true | false  
+                    //alert("aaa");
+                });
+            });
+        </script>-->
+
+        <script>
+            function onClkSettingAuto() {
+                $('#autoDlg').modal();
+                setTimeout(function() {
+                    var checkAll = true;
+                    for(var id in AUTO_OPR) {
+                        if(AUTO_OPR[id].open) {
+                            $('#' + id + "_open").prop("checked", true);
+                        } else {
+                            $('#' + id + "_open").prop("checked", false);
+                            checkAll = false;
+                        }
+
+                        $("#" + id + " .period-show").text(AUTO_OPR[id].period);
+                    }
+                    if(checkAll) {
+                        $("#all_open").prop("checked", true);
+                    } else {
+                        $("#all_open").prop("checked", false);
+                    }
+                }, 0)
+            }
+
+            $(document).ready(function() {
+                $("#autoLogin .period-input").blur(function() {
+                    $("#autoLogin .period-show").text($("#autoLogin .period-input").val() || $("#autoLogin .period-show").text());
+                    inputBlur("autoLogin");
+                });
+                $("#autoBuy .period-input").blur(function() {
+                    $("#autoBuy .period-show").text($("#autoBuy .period-input").val() || $("#autoBuy .period-show").text());
+                    inputBlur("autoBuy");
+                });
+                $("#autoSearch .period-input").blur(function() {
+                    $("#autoSearch .period-show").text($("#autoSearch .period-input").val() || $("#autoSearch .period-show").text());
+                    inputBlur("autoSearch");
+                });
+                $("#autoSearchAll .period-input").blur(function() {
+                    $("#autoSearchAll .period-show").text($("#autoSearchAll .period-input").val() || $("#autoSearchAll .period-show").text());
+                    inputBlur("autoSearchAll");
+                });
+
+                $("#all_open").bootstrapSwitch('destroy');
+            });
+
+            function editClk(id) {
+                $("#" + id + " .period-show").hide();
+                $("#" + id + " .period-edit").hide();
+                $("#" + id + " .period-input").show();
+                document.getElementById(id + "_input").focus();
+                var period = $("#" + id + " .period-show").text();
+                $("#" + id + "_input").val(period);
+            }
+
+            function inputBlur(id) {
+                $("#" + id + " .period-show").show();
+                $("#" + id + " .period-edit").show();
+                $("#" + id + " .period-input").hide();
+            }
+
+            function onClkHideAuto() {
+                $('#autoDlg').modal("hide");
+            }
+            var login_timer, buy_timer, search_timer, searchAll_timer;
+
+            function clearOldTimer() {
+                var timers = [login_timer, buy_timer, search_timer, searchAll_timer];
+                for(i = 0; i < timers.length; i++) {
+                    if(timers[i]) {
+                        clearInterval(timers[i]);
+                    }
+                }
+            }
+
+            function setIntervalLogin() {
+                login_timer = setInterval(function() {
+                    if(!AUTO_OPR["autoLogin"].open) {
+                        return;
+                    }
+                    var reqdata = {
+                        "id": 0,
+                        "name": "apm",
+                        "password": "123456"
+                    }
+                    //                  ajaxPostFunc("/user/login", reqdata);
+                }, AUTO_OPR["autoLogin"].period * 1000);
+            }
+
+            function setIntervalBuy() {
+                buy_timer = setInterval(function() {
+                    if(!AUTO_OPR["autoBuy"].open) {
+                        return;
+                    }
+                    var reqdata = {
+                        user: {
+                            id: 0,
+                            name: "apm",
+                            password: "123456"
+                        },
+                        productidList: [1, 2]
+                    }
+                    //                  ajaxPostFunc("/product/buy/0", reqdata);
+                }, AUTO_OPR["autoBuy"].period * 1000);
+            }
+
+            function setIntervalSearch() {
+                search_timer = setInterval(function() {
+                    if(!AUTO_OPR["autoSearch"].open) {
+                        return;
+                    }
+                    //                  ajaxGetFunc("/product/search?productName=");
+                }, AUTO_OPR["autoSearch"].period * 1000);
+            }
+
+            function setIntervalSearchAll() {
+                searchAll_timer = setInterval(function() {
+                    if(!AUTO_OPR["autoSearchAll"].open) {
+                        return;
+                    }
+                    //                  ajaxGetFunc("/product/searchAll");
+                }, AUTO_OPR["autoSearchAll"].period * 1000);
+            }
+
+            function ajaxGetFunc(url) {
+                $.get(url + "", function(data) {
+                    console.log(data);
+                })
+            }
+
+            function ajaxPostFunc(url, reqdata) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: JSON.stringify(reqdata),
+                    success: function a(data) {
+                        console.log(data)
+                    },
+                    contentType: "application/json",
+                    async: true
+                })
+            }
+
+            function onkeyupClk(id) {
+                var value = $("#" + id).val();
+                value = value.replace(/\D/g, '');
+                if(parseInt(value) > 600) {
+                    $('#' + id).popover('show');
+                    value = (value - value % 10) / 10;
+                }
+                $("#" + id).val(value);
+                setTimeout(function() {
+                    $('#' + id).popover('hide');
+                }, 3000)
+            }
+
+            function checkOpenInput(cId) {
+                //全选
+                if(cId === "all") {
+                    for(var id in AUTO_OPR) {
+                        if($("#all_open").prop("checked")) {
+                            $("#" + id + "_open").prop("checked", true);
+                        } else {
+                            $("#" + id + "_open").prop("checked", false);
+                        }
+                    }
+                } else {
+                    var isAllCheck = true;
+                    for(var id in AUTO_OPR) {
+                        var checked = $("#" + id + "_open").prop("checked");
+                        if(!checked) {
+                            isAllCheck = false;
+                        }
+                    }
+                    if(isAllCheck) {
+                        $("#all_open").prop("checked", true);
+                    } else {
+                        $("#all_open").prop("checked", false);
+                    }
+                }
+            }
+        </script>
+        <style>
+            #autoLogin td {
+                vertical-align: middle;
+                height: 60px;
+            }
+            
+            #autoBuy td {
+                vertical-align: middle;
+                height: 60px;
+            }
+            
+            #autoSearch td {
+                vertical-align: middle;
+                height: 60px;
+            }
+            
+            #autoSearchAll td {
+                vertical-align: middle;
+                height: 60px;
+            }
+            
+            .period-edit {
+                margin-left: 10px;
+                cursor: pointer;
+            }
+            
+            .period-show {
+                font-size: 14px;
+            }
+            
+            .auto-footer {
+                width: 100%;
+                height: 50px;
+                margin-top: -20px;
+                line-height: 50px;
+            }
+            
+            .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary,
+            .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
+                background: #FA1818;
+            }
+            
+            .btn-primary {
+                background: #84C639;
+                border-color: #84C639;
+            }
+            
+            .btn-primary:hover {
+                background: #FA1818;
+                border-color: #FA1818;
+            }
+            
+            .btn-primary:active {
+                background: #FA1818;
+                border-color: #FA1818;
+            }
+        #userTip {
+            position: absolute;
+            top: 40px;
+            min-width: 230px;
+            background: #ffffff;
+            border: 1px solid #3dcca6;
+            border-radius: 5px;
+            z-index: 100;
+            padding: 0 5px;
+            display: none;
+            box-shadow: 0 0 5px #999999;
+        }
+
+        #userTip::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ffffff;
+            margin-top: -5px;
+            left: 110px;
+            transform: rotate(45deg);
+        }
+
+        #userTip>p {
+            height: 40px;
+            line-height: 40px;
+        }
+
+        #userTip>p>span {
+            text-align: center;
+        }
+
+        .userNum {
+            color: #ff4c4c;
+        }
+        </style>
+        <div class="modal fade" id="autoDlg" role="dialog">
+            <div class="w3_login">
+                <div class="w3_login_module">
+                    <div class="module form-module" style="max-width:800px;">
+                        <div class="toggle" onclick="onClkHideAuto()"><i class="fa fa-times"></i>
+                        </div>
+                        <table class="table table-hover" style="width:800px;margin-left:auto;margin-right:auto;">
+                            <thead>
+                                <tr style="height: 60px;">
+                                    <th>
+                                        <span>操作</span>
+                                    </th>
+                                    <th>
+                                        <span style="float:left;display:inline-block;">开启</span>
+                                        <span style="float:left;display:inline-block;margin-left:5px;">
+                                            <input id="all_open" onclick="checkOpenInput('all')" type="checkbox"></input>
+                                        </span>
+                                    </th>
+                                    <th style="width:240px;" id="all">
+                                        <span>调用周期(秒)</span>
+                                        <span class="period-show">60</span><span class="period-edit" onclick="editClk('all')"><img src="./images/edit.png"/></span>
+                                        <input id="all_input" style="width:100px;display:none;" ata-container="body" data-toggle="popover" data-placement="right" data-content="调用周期不大于600秒" class="period-input" onkeyup="onkeyupClk('all_input')"></input>
+                                    </th>
+                                    <th>URL</th>
+                                    <th>备注</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="autoLogin">
+                                    <td>登陆</td>
+                                    <td>
+                                        <input id="autoLogin_open" onclick="checkOpenInput('autoLogin')" type="checkbox"></input>
+                                    </td>
+                                    <td>
+                                        <span class="period-show">60</span><span class="period-edit" onclick="editClk('autoLogin')"><img src="./images/edit.png"/></span>
+                                        <input id="autoLogin_input" ata-container="body" data-toggle="popover" data-placement="right" data-content="调用周期不大于600秒" class="period-input" onkeyup="onkeyupClk('autoLogin_input')"></input>
+                                    </td>
+                                    <td>/user/login</td>
+                                    <td>慢调用：时延1秒</td>
+                                </tr>
+                                <tr id="autoBuy">
+                                    <td>购买</td>
+                                    <td>
+                                        <input id="autoBuy_open" onclick="checkOpenInput('autoBuy')" type="checkbox"></input>
+                                    </td>
+                                    <td>
+                                        <span class="period-show">60</span><span class="period-edit" onclick="editClk('autoBuy')"><img src="./images/edit.png"/></span>
+                                        <input id="autoBuy_input" data-toggle="popover" data-placement="right" data-content="调用周期不大于600秒" class="period-input" onkeyup="onkeyupClk('autoBuy_input')"></input>
+                                    </td>
+                                    <td>/product/buy</td>
+                                    <td>错误调用：失败率50%</td>
+                                </tr>
+                                <tr id="autoSearch">
+                                    <td>查询</td>
+                                    <td>
+                                        <input id="autoSearch_open" onclick="checkOpenInput('autoSearch')" type="checkbox">
+                                    </td>
+                                    <td>
+                                        <span class="period-show">60</span><span class="period-edit" onclick="editClk('autoSearch')"><img src="./images/edit.png"/></span>
+                                        <input id="autoSearch_input" data-toggle="popover" data-placement="right" data-content="调用周期不大于600秒" class="period-input" onkeyup="onkeyupClk('autoSearch_input')"></input>
+                                    </td>
+                                    <td>/product/search</td>
+                                    <td></td>
+                                </tr>
+                                <tr id="autoSearchAll">
+                                    <td>查询全部</td>
+                                    <td>
+                                        <input id="autoSearchAll_open" onclick="checkOpenInput('autoSearchAll')" type="checkbox">
+                                    </td>
+                                    <td>
+                                        <span class="period-show">60</span><span class="period-edit" onclick="editClk('autoSearchAll')"><img src="./images/edit.png"/></span>
+                                        <input id="autoSearchAll_input" data-toggle="popover" data-placement="right" data-content="调用周期不大于600秒" class="period-input" onkeyup="onkeyupClk('autoSearchAll_input')"></input>
+                                    </td>
+                                    <td>/product/searchAll</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="auto-footer">
+                            <button type="button" onclick="onClkCofirmAuto()" style="float:right;margin-right:20px;margin-top:10px;width:60px;" class="btn btn-primary">确定</button>
+                            <button type="button" onclick="onClkHideAuto()" style="float:right;margin-right:20px;margin-top:10px;width:60px;" class="btn btn-default">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+
+</html>

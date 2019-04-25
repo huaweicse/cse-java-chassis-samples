@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script type="application/x-javascript">
+    addEventListener("load", function () {
+      setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+      window.scrollTo(0, 1);
+    }
+  </script>
+  <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="toastr/toastr.css" rel="stylesheet" />
+  <link href="css/font-awesome.css" rel="stylesheet" type="text/css" media="all" />
+  <script src="js/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="js/move-top.js"></script>
+  <script type="text/javascript" src="js/easing.js"></script>
+  <script src="toastr/toastr.js"></script>
+  <script type="text/javascript">
+    jQuery(document).ready(function ($) {
+      $(".scroll").click(function (event) {
+        event.preventDefault();
+        $('html,body').animate({
+          scrollTop: $(this.hash).offset().top
+        }, 1000);
+      });
+    });
+  </script>
+
+  <link href="dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
+  <link href="css/highlight.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <link href="css/market.css" rel="stylesheet" type="text/css" media="all" />
+  <script src="dist/js/bootstrap-switch.js"></script>
+  <script src="js/highlight.js"></script>
+  <script src="js/main.js"></script>
+</head>
+
+<body>
+  <!-- //script-for sticky-nav -->
+  <div class="logo_products">
+    <div class="container">
+      <div class="w3ls_logo_products_left">
+        <h1>
+          <a href="index.html">
+            <span>HOUSE</span> Store</a>
+        </h1>
+      </div>
+      <div class="clearfix"> </div>
+    </div>
+  </div>
+  <!-- products-breadcrumb -->
+  <div class="products-breadcrumb">
+    <div class="container">
+      <ul>
+        <li>
+          <i style="color:#ffffff" class="fa fa-home"></i>
+          <a href="index.html">Home</a>
+          <span>|</span>
+        </li>
+        <li>预售项目列表</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="productList">
+    <div style="background:#f5f5f5;padding:20px 0;">
+      <div class="container snipcart-details">
+        <div class="table">
+          <div class="header clearfix">
+            <p class="floors fl">
+              <span>座号：</span>
+              <!-- <span>A座</span> -->
+              <!-- <span>B座</span> -->
+            </p>
+            <p class="fr">
+              <span>更新时间：</span>
+              <span class="updatetime">2017-12-12</span>
+            </p>
+          </div>
+          <div class="tbody">
+            <!-- <div class="tr borderBottom clearfix">
+              <div class="td floor fl">
+                1层
+              </div>
+              <div class="td rooms fr">
+                <div class="labelRight">
+                  <div>房号：
+                    <span>4033</span>
+                  </div>
+                  <input type="button" value="期房代售" class="button">
+                </div>
+                <div class="labelRight">
+                  <div>房号：
+                    <span>4033</span>
+                  </div>
+                  <input type="button" value="期房代售" class="button">
+                </div>
+                <div class="labelRight">
+                  <div>房号：
+                    <span>4033</span>
+                  </div>
+                  <input type="button" value="期房代售" class="button">
+                </div>
+                <div class="labelRight">
+                  <div>房号：
+                    <span>4033</span>
+                  </div>
+                  <input type="button" value="期房代售" class="button">
+                </div>
+                <div class="labelRight">
+                  <div>房号：
+                    <span>4033</span>
+                  </div>
+                  <input type="button" value="期房代售" class="button">
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/bootstrap.min.js"></script>
+  <script type='text/javascript'>
+    var state = {
+      1: '期房代售',
+      2: '已签预售合同'
+    }
+    var tableMudel = function (data) {
+      $('.tbody').html('')
+      data.map(function (v, k) {
+        var floorTemplate =
+          `
+            <div class="tr borderBottom clearfix">
+                <div class="td floor fl">
+                  ${v.name}
+                </div>
+                <div class="td rooms fr room${k}">
+
+                </div>
+              </div>
+          `
+        $('.tbody').append(floorTemplate);
+        v.rooms.map(function (o, k1) {
+          var roomsTemplate =
+            `
+              <div class="labelRight">
+                <div>房号：
+                  <span>${o.num}</span>
+                </div>
+                <input type="button" value="${state[o.status]}" class="button">
+              </div>
+            `
+          $('.room' + k).append(roomsTemplate);
+          if (v.rooms.length - 1 === k1) {
+            $('.room' + k).children().map(function (v, k) {
+              if ($(k).children('input').val() === state[1]) {
+                $(k).children('input').addClass('green');
+              }
+            });
+            $('.room' + k).children().eq(k1).addClass('borderRight');
+          };
+        });
+      });
+
+    };
+
+    var mockOption = {
+      "building": "A座",
+      "updatetime": "13 Dec 2017 09:14:54 GMT",
+      "floors": [{
+        "name": "43层",
+        "rooms": [{
+          "num": "4301",
+          "status": "1" //1: 期房代售，2: 已签预售合同
+        }, {
+          "num": "4302",
+          "status": "1" //1: 期房代售，2: 已签预售合同
+        }, {
+          "num": "4303",
+          "status": "1" //1: 期房代售，2: 已签预售合同
+        }, {
+          "num": "4304",
+          "status": "2" //1: 期房代售，2: 已签预售合同
+        }, {
+          "num": "4305",
+          "status": "2" //1: 期房代售，2: 已签预售合同
+        }, {
+          "num": "4306",
+          "status": "1" //1: 期房代售，2: 已签预售合同
+        }, {
+          "num": "4307",
+          "status": "1" //1: 期房代售，2: 已签预售合同
+        }]
+      }, {
+        "name": "42层",
+        "rooms": [{
+          "num": "4301",
+          "status": "2" //1: 期房代售，2: 已签预售合同
+        }, {
+          "num": "4302",
+          "status": "1" //1: 期房代售，2: 已签预售合同
+        }, {
+          "num": "4303",
+          "status": "2" //1: 期房代售，2: 已签预售合同
+        }, {
+          "num": "4304",
+          "status": "1" //1: 期房代售，2: 已签预售合同
+        }, {
+          "num": "4305",
+          "status": "1" //1: 期房代售，2: 已签预售合同
+        }, {
+          "num": "4306",
+          "status": "1" //1: 期房代售，2: 已签预售合同
+        }, {
+          "num": "4307",
+          "status": "1" //1: 期房代售，2: 已签预售合同
+        }]
+      }, {
+        "name": "41层",
+        "rooms": [{
+          "num": "4301",
+          "status": "2" //1: 期房代售，2: 已签预售合同
+        }, {
+          "num": "4302",
+          "status": "1" //1: 期房代售，2: 已签预售合同
+        }, {
+          "num": "4303",
+          "status": "1" //1: 期房代售，2: 已签预售合同
+        }, {
+          "num": "4304",
+          "status": "1" //1: 期房代售，2: 已签预售合同
+        }, {
+          "num": "4305",
+          "status": "1" //1: 期房代售，2: 已签预售合同
+        }, {
+          "num": "4306",
+          "status": "2" //1: 期房代售，2: 已签预售合同
+        }, {
+          "num": "4307",
+          "status": "1" //1: 期房代售，2: 已签预售合同
+        }]
+      }]
+    };
+
+    function fmt(fmt, data) {
+      var time = new Date(data);
+      var o = {
+        "M+": time.getMonth() + 1, //月份         
+        "d+": time.getDate(), //日         
+        "h+": time.getHours() % 12 == 0 ? 12 : time.getHours() % 12, //小时         
+        "H+": time.getHours(), //小时         
+        "m+": time.getMinutes(), //分         
+        "s+": time.getSeconds(), //秒         
+      };
+      var week = {
+        "0": "/u65e5",
+        "1": "/u4e00",
+        "2": "/u4e8c",
+        "3": "/u4e09",
+        "4": "/u56db",
+        "5": "/u4e94",
+        "6": "/u516d"
+      };
+      if (/(y+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, (time.getFullYear() + "").substr(4 - RegExp.$1.length));
+      }
+      if (/(E+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "/u661f/u671f" : "/u5468") :
+          "") + week[time.getDay() + ""]);
+      }
+      for (var k in o) {
+        if (new RegExp("(" + k + ")").test(fmt)) {
+          fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        }
+      }
+      return fmt;
+    };
+
+    $(document).ready(function () {
+      $('.floors').append(`<span><a href="javascript:void(0)">${mockOption.building}</a></span>`);
+      $('.updatetime').text(fmt('yyyy-MM-dd', mockOption.updatetime));
+      tableMudel(mockOption.floors);
+    });
+  </script>
+</body>
+
+</html>

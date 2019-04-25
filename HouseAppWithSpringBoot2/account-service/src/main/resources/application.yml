@@ -1,0 +1,28 @@
+cse-config-order: 100
+
+## Spring Boot configurations
+spring:
+  application:
+    name: account-service
+  main:
+    allow-bean-definition-overriding: true
+server:
+  port: 8094
+
+## spring mvc rest servlet path
+  servlet: 
+    path: /mvc
+
+## CSE configurations
+cse:
+  rest:
+    address: 0.0.0.0:8094
+
+## cse rest servlet path
+  servlet:
+    urlPattern: /*
+
+# alpha
+alpha:
+  cluster:
+    address: 127.0.0.1:7080

@@ -1,0 +1,18 @@
+server:
+  port: 7071
+
+service_description:
+  name: cse-oauth2-resource-server
+
+cse:
+  service:
+    registry:
+      address: http://127.0.0.1:30100
+      instance:
+        watch: false
+
+  rest:
+    address: 0.0.0.0:7071
+    
+  executors:
+    default: servicecomb.executor.reactive

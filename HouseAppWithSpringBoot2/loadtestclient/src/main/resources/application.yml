@@ -1,0 +1,18 @@
+cse-config-order: 100
+
+## Spring Boot configurations
+server:
+  port: 8088
+spring:
+  application:
+    name: loadtestclient
+## CSE configurations
+cse:
+  rest:
+    address: 0.0.0.0:8088
+  handler:
+    chain:
+      Provider:
+        default: tracing-provider
+      Consumer:
+        default: tracing-consumer,loadbalance
